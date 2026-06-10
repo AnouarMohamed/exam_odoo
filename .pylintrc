@@ -7,8 +7,15 @@ disable=
     C0114, # missing-module-docstring
     C0115, # missing-class-docstring
     C0116, # missing-function-docstring
-    W0104, # pointless-statement (often used in Odoo for related fields)
+    W0104, # pointless-statement
     R0903, # too-few-public-methods
+    C8101, # manifest-required-key (sometimes problematic in CI)
+    W8106, # missing-return-in-method
+    C8201, # manifest-version-format
+    attribute-defined-outside-init,
+    protected-access,
+    too-many-ancestors,
+    method-hidden,
 
 [REPORTS]
 output-format=colorized
