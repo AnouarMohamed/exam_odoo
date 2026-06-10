@@ -1,0 +1,31 @@
+flowchart LR
+    subgraph Responsable["Responsable agence"]
+        R1([Début])
+        R2[Identifie une destination]
+        R3[Sélectionne les prestataires]
+        R6[Sélectionne un autre prestataire]
+        R4[Ouvre le départ aux réservations]
+        R5([Fin])
+    end
+
+    subgraph Agent["Agent de voyages"]
+        A1[Crée la destination dans Odoo]
+        A2[Crée le package et les services inclus]
+        A3[Crée le départ programmé]
+    end
+
+    subgraph Fournisseur["Prestataire / Fournisseur"]
+        F1[Confirme la disponibilité des services]
+        F2{Prestations disponibles ?}
+    end
+
+    subgraph Odoo["Odoo SI"]
+        O1[Centralise destination et package]
+        O2[Associe les fournisseurs]
+        O3[Suit la capacité du départ]
+        O4[Autorise le démarrage des réservations]
+    end
+
+    R1 --> R2 --> A1 --> O1 --> A2 --> R3 --> O2 --> F1 --> F2
+    F2 -- Non --> R6 --> R3
+    F2 -- Oui --> A3 --> O3 --> R4 --> O4 --> R5

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_Processus_Prestations" targetNamespace="https://atlas-horizon-travel.example.com/bpmn">
+  <bpmn:collaboration id="Collaboration_Processus_Prestations">
+    <bpmn:participant id="Participant_Prestations" name="Processus de préparation et achat des prestations touristiques" processRef="Processus_Prestations_Touristiques"/>
+  </bpmn:collaboration>
+  <bpmn:process id="Processus_Prestations_Touristiques" name="Processus de préparation et achat des prestations touristiques" isExecutable="false">
+    <bpmn:laneSet id="LaneSet_Prestations">
+      <bpmn:lane id="Lane_Responsable_Prestations" name="Responsable agence">
+        <bpmn:flowNodeRef>Start_Prestations</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Identifie_Destination</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Selectionne_Fournisseurs</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Selectionne_Autre_Fournisseur</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Ouvre_Depart</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>End_Prestations</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_Agent_Prestations" name="Agent de voyages">
+        <bpmn:flowNodeRef>Task_Cree_Destination</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Cree_Package</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Cree_Depart</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_Fournisseur" name="Prestataire / Fournisseur">
+        <bpmn:flowNodeRef>Task_Confirme_Disponibilite</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_Prestations_Disponibles</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_Odoo_Prestations" name="Odoo SI">
+        <bpmn:flowNodeRef>Task_Centralise_Donnees</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Associe_Fournisseurs</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Suit_Capacite</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Autorise_Reservations</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+
+    <bpmn:startEvent id="Start_Prestations" name="Début"><bpmn:outgoing>Flow_P01</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:task id="Task_Identifie_Destination" name="Responsable identifie une destination"><bpmn:incoming>Flow_P01</bpmn:incoming><bpmn:outgoing>Flow_P02</bpmn:outgoing></bpmn:task>
+    <bpmn:task id="Task_Cree_Destination" name="Agent crée la destination dans Odoo"><bpmn:incoming>Flow_P02</bpmn:incoming><bpmn:outgoing>Flow_P03</bpmn:outgoing></bpmn:task>
+    <bpmn:task id="Task_Centralise_Donnees" name="Odoo centralise la destination"><bpmn:incoming>Flow_P03</bpmn:incoming><bpmn:outgoing>Flow_P04</bpmn:outgoing></bpmn:task>
+    <bpmn:task id="Task_Cree_Package" name="Agent crée le package et les services inclus"><bpmn:incoming>Flow_P04</bpmn:incoming><bpmn:outgoing>Flow_P05</bpmn:outgoing></bpmn:task>
+    <bpmn:task id="Task_Selectionne_Fournisseurs" name="Responsable sélectionne les prestataires"><bpmn:incoming>Flow_P05</bpmn:incoming><bpmn:incoming>Flow_P08B</bpmn:incoming><bpmn:outgoing>Flow_P06</bpmn:outgoing></bpmn:task>
+    <bpmn:task id="Task_Associe_Fournisseurs" name="Odoo associe les fournisseurs au package"><bpmn:incoming>Flow_P06</bpmn:incoming><bpmn:outgoing>Flow_P07</bpmn:outgoing></bpmn:task>
+    <bpmn:task id="Task_Confirme_Disponibilite" name="Fournisseur confirme la disponibilité des services"><bpmn:incoming>Flow_P07</bpmn:incoming><bpmn:outgoing>Flow_P08</bpmn:outgoing></bpmn:task>
+    <bpmn:exclusiveGateway id="Gateway_Prestations_Disponibles" name="Prestations disponibles ?"><bpmn:incoming>Flow_P08</bpmn:incoming><bpmn:outgoing>Flow_P08N</bpmn:outgoing><bpmn:outgoing>Flow_P08Y</bpmn:outgoing></bpmn:exclusiveGateway>
+    <bpmn:task id="Task_Selectionne_Autre_Fournisseur" name="Responsable sélectionne un autre prestataire"><bpmn:incoming>Flow_P08N</bpmn:incoming><bpmn:outgoing>Flow_P08B</bpmn:outgoing></bpmn:task>
+    <bpmn:task id="Task_Cree_Depart" name="Agent crée le départ programmé"><bpmn:incoming>Flow_P08Y</bpmn:incoming><bpmn:outgoing>Flow_P09</bpmn:outgoing></bpmn:task>
+    <bpmn:task id="Task_Suit_Capacite" name="Odoo suit la capacité du départ"><bpmn:incoming>Flow_P09</bpmn:incoming><bpmn:outgoing>Flow_P10</bpmn:outgoing></bpmn:task>
+    <bpmn:task id="Task_Ouvre_Depart" name="Responsable ouvre le départ aux réservations"><bpmn:incoming>Flow_P10</bpmn:incoming><bpmn:outgoing>Flow_P11</bpmn:outgoing></bpmn:task>
+    <bpmn:task id="Task_Autorise_Reservations" name="Odoo autorise le démarrage des réservations"><bpmn:incoming>Flow_P11</bpmn:incoming><bpmn:outgoing>Flow_P12</bpmn:outgoing></bpmn:task>
+    <bpmn:endEvent id="End_Prestations" name="Fin"><bpmn:incoming>Flow_P12</bpmn:incoming></bpmn:endEvent>
+
+    <bpmn:sequenceFlow id="Flow_P01" sourceRef="Start_Prestations" targetRef="Task_Identifie_Destination"/>
+    <bpmn:sequenceFlow id="Flow_P02" sourceRef="Task_Identifie_Destination" targetRef="Task_Cree_Destination"/>
+    <bpmn:sequenceFlow id="Flow_P03" sourceRef="Task_Cree_Destination" targetRef="Task_Centralise_Donnees"/>
+    <bpmn:sequenceFlow id="Flow_P04" sourceRef="Task_Centralise_Donnees" targetRef="Task_Cree_Package"/>
+    <bpmn:sequenceFlow id="Flow_P05" sourceRef="Task_Cree_Package" targetRef="Task_Selectionne_Fournisseurs"/>
+    <bpmn:sequenceFlow id="Flow_P06" sourceRef="Task_Selectionne_Fournisseurs" targetRef="Task_Associe_Fournisseurs"/>
+    <bpmn:sequenceFlow id="Flow_P07" sourceRef="Task_Associe_Fournisseurs" targetRef="Task_Confirme_Disponibilite"/>
+    <bpmn:sequenceFlow id="Flow_P08" sourceRef="Task_Confirme_Disponibilite" targetRef="Gateway_Prestations_Disponibles"/>
+    <bpmn:sequenceFlow id="Flow_P08N" name="Non" sourceRef="Gateway_Prestations_Disponibles" targetRef="Task_Selectionne_Autre_Fournisseur"/>
+    <bpmn:sequenceFlow id="Flow_P08B" sourceRef="Task_Selectionne_Autre_Fournisseur" targetRef="Task_Selectionne_Fournisseurs"/>
+    <bpmn:sequenceFlow id="Flow_P08Y" name="Oui" sourceRef="Gateway_Prestations_Disponibles" targetRef="Task_Cree_Depart"/>
+    <bpmn:sequenceFlow id="Flow_P09" sourceRef="Task_Cree_Depart" targetRef="Task_Suit_Capacite"/>
+    <bpmn:sequenceFlow id="Flow_P10" sourceRef="Task_Suit_Capacite" targetRef="Task_Ouvre_Depart"/>
+    <bpmn:sequenceFlow id="Flow_P11" sourceRef="Task_Ouvre_Depart" targetRef="Task_Autorise_Reservations"/>
+    <bpmn:sequenceFlow id="Flow_P12" sourceRef="Task_Autorise_Reservations" targetRef="End_Prestations"/>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="Diagram_Processus_Prestations">
+    <bpmndi:BPMNPlane id="Plane_Processus_Prestations" bpmnElement="Collaboration_Processus_Prestations">
+      <bpmndi:BPMNShape id="Participant_Prestations_di" bpmnElement="Participant_Prestations" isHorizontal="true">
+        <dc:Bounds x="120" y="80" width="2640" height="560"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Responsable_Prestations_di" bpmnElement="Lane_Responsable_Prestations" isHorizontal="true">
+        <dc:Bounds x="150" y="80" width="2610" height="140"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Agent_Prestations_di" bpmnElement="Lane_Agent_Prestations" isHorizontal="true">
+        <dc:Bounds x="150" y="220" width="2610" height="140"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Fournisseur_di" bpmnElement="Lane_Fournisseur" isHorizontal="true">
+        <dc:Bounds x="150" y="360" width="2610" height="140"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Odoo_Prestations_di" bpmnElement="Lane_Odoo_Prestations" isHorizontal="true">
+        <dc:Bounds x="150" y="500" width="2610" height="140"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Start_Prestations_di" bpmnElement="Start_Prestations">
+        <dc:Bounds x="210" y="132" width="36" height="36"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Identifie_Destination_di" bpmnElement="Task_Identifie_Destination">
+        <dc:Bounds x="290" y="110" width="150" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Cree_Destination_di" bpmnElement="Task_Cree_Destination">
+        <dc:Bounds x="500" y="250" width="150" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Centralise_Donnees_di" bpmnElement="Task_Centralise_Donnees">
+        <dc:Bounds x="710" y="530" width="150" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Cree_Package_di" bpmnElement="Task_Cree_Package">
+        <dc:Bounds x="920" y="250" width="150" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Selectionne_Fournisseurs_di" bpmnElement="Task_Selectionne_Fournisseurs">
+        <dc:Bounds x="1130" y="110" width="150" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Associe_Fournisseurs_di" bpmnElement="Task_Associe_Fournisseurs">
+        <dc:Bounds x="1340" y="530" width="150" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Confirme_Disponibilite_di" bpmnElement="Task_Confirme_Disponibilite">
+        <dc:Bounds x="1550" y="390" width="150" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_Prestations_Disponibles_di" bpmnElement="Gateway_Prestations_Disponibles" isMarkerVisible="true">
+        <dc:Bounds x="1740" y="405" width="50" height="50"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Selectionne_Autre_Fournisseur_di" bpmnElement="Task_Selectionne_Autre_Fournisseur">
+        <dc:Bounds x="1550" y="110" width="150" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Cree_Depart_di" bpmnElement="Task_Cree_Depart">
+        <dc:Bounds x="1840" y="250" width="150" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Suit_Capacite_di" bpmnElement="Task_Suit_Capacite">
+        <dc:Bounds x="2050" y="530" width="150" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Ouvre_Depart_di" bpmnElement="Task_Ouvre_Depart">
+        <dc:Bounds x="2260" y="110" width="150" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Autorise_Reservations_di" bpmnElement="Task_Autorise_Reservations">
+        <dc:Bounds x="2470" y="530" width="150" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="End_Prestations_di" bpmnElement="End_Prestations">
+        <dc:Bounds x="2680" y="132" width="36" height="36"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_P01_di" bpmnElement="Flow_P01"><di:waypoint x="246" y="150"/><di:waypoint x="290" y="150"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_P02_di" bpmnElement="Flow_P02"><di:waypoint x="440" y="150"/><di:waypoint x="500" y="290"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_P03_di" bpmnElement="Flow_P03"><di:waypoint x="650" y="290"/><di:waypoint x="710" y="570"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_P04_di" bpmnElement="Flow_P04"><di:waypoint x="860" y="570"/><di:waypoint x="920" y="290"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_P05_di" bpmnElement="Flow_P05"><di:waypoint x="1070" y="290"/><di:waypoint x="1130" y="150"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_P06_di" bpmnElement="Flow_P06"><di:waypoint x="1280" y="150"/><di:waypoint x="1340" y="570"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_P07_di" bpmnElement="Flow_P07"><di:waypoint x="1490" y="570"/><di:waypoint x="1550" y="430"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_P08_di" bpmnElement="Flow_P08"><di:waypoint x="1700" y="430"/><di:waypoint x="1740" y="430"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_P08N_di" bpmnElement="Flow_P08N"><di:waypoint x="1765" y="405"/><di:waypoint x="1625" y="190"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_P08B_di" bpmnElement="Flow_P08B"><di:waypoint x="1550" y="150"/><di:waypoint x="1280" y="150"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_P08Y_di" bpmnElement="Flow_P08Y"><di:waypoint x="1790" y="430"/><di:waypoint x="1840" y="290"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_P09_di" bpmnElement="Flow_P09"><di:waypoint x="1990" y="290"/><di:waypoint x="2050" y="570"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_P10_di" bpmnElement="Flow_P10"><di:waypoint x="2200" y="570"/><di:waypoint x="2260" y="150"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_P11_di" bpmnElement="Flow_P11"><di:waypoint x="2410" y="150"/><di:waypoint x="2470" y="570"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_P12_di" bpmnElement="Flow_P12"><di:waypoint x="2620" y="570"/><di:waypoint x="2680" y="150"/></bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

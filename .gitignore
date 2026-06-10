@@ -1,15 +1,19 @@
-# Ignore everything by default
-*
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
 
-# Allow the .gitignore file itself
-!.gitignore
+# OS Files
+.DS_Store
+.DS_Store?
+ehthumbs.db
+Thumbs.db
 
-# Allow the rendu_Anouar_Mohamed directory and all its contents
-!rendu_Anouar_Mohamed/
-!rendu_Anouar_Mohamed/**
+# Editors and IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
 
-# Ignore pycache inside the allowed folder
-**/__pycache__/
-**/*.py[cod]
-**/*$py.class
-**/.DS_Store
+# Temporary log files
+*.log

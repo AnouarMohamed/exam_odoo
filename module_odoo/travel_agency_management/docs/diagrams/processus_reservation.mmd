@@ -1,0 +1,39 @@
+flowchart LR
+    subgraph Client
+        C1([Début])
+        C2[Demande une offre de voyage]
+        C3{Accepte l'offre ?}
+        C4[Confirme le devis]
+        C5([Fin refus])
+        C6([Fin réservation])
+    end
+
+    subgraph Agent["Agent de voyages"]
+        A1[Consulte destinations, packages et départs]
+        A2[Propose une offre]
+        A3[Crée la réservation]
+        A4[Soumet la réservation]
+        A5[Propose un autre départ]
+        A6[Imprime le bon de réservation]
+    end
+
+    subgraph Responsable["Responsable agence"]
+        R1[Vérifie la disponibilité]
+        R2{Places disponibles ?}
+        R3[Approuve la réservation]
+    end
+
+    subgraph Odoo["Odoo SI"]
+        O1[Vérifie les données obligatoires]
+        O2[Contrôle la capacité]
+        O3[Crée le devis via Ventes]
+        O4[Facturation via Comptabilité standard]
+        O5[Confirme la réservation]
+        O6[Génère le bon PDF]
+    end
+
+    C1 --> C2 --> A1 --> A2 --> C3
+    C3 -- Non --> C5
+    C3 -- Oui --> A3 --> O1 --> A4 --> R1 --> O2 --> R2
+    R2 -- Non --> A5 --> A2
+    R2 -- Oui --> R3 --> O3 --> C4 --> O4 --> O5 --> A6 --> O6 --> C6
