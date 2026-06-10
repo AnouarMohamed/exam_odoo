@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Rapport de Projet - Examen Final Odoo 17</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Times New Roman', Times, Georgia, serif;
+            line-height: 1.5;
+            color: #000000;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+        }
+        
+        p {
+            margin-top: 0;
+            margin-bottom: 12px;
+            text-align: justify;
+            text-indent: 20px;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Times New Roman', Times, Georgia, serif;
+            color: #000000;
+            font-weight: bold;
+            margin-top: 0;
+            text-indent: 0;
+        }
+        
+        /* Cover Page (Strictly Neutral Academic) */
+        .cover-page {
+            height: 95vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 80px 60px;
+            border: 1px solid #000000;
+            margin: 20px;
+            page-break-after: always;
+            background-color: #ffffff;
+        }
+        
+        .cover-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #000000;
+            padding-bottom: 20px;
+        }
+        
+        .institution-container {
+            text-align: left;
+        }
+        
+        .institution-name {
+            font-size: 18px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        
+        .course-name {
+            font-size: 13px;
+            margin-top: 5px;
+        }
+        
+        .university-logo {
+            height: 70px;
+            width: auto;
+        }
+        
+        .cover-body {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px 0;
+        }
+        
+        .doc-tag {
+            font-size: 12px;
+            font-weight: bold;
+            border: 1px solid #000000;
+            padding: 4px 10px;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            line-height: 1.2;
+        }
+        
+        .doc-subject {
+            font-size: 18px;
+            margin-bottom: 40px;
+            font-style: italic;
+        }
+        
+        .cover-metadata {
+            border-top: 1px solid #000000;
+            padding-top: 30px;
+            margin-top: 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            text-align: left;
+        }
+        
+        .meta-item {
+            margin-bottom: 10px;
+        }
+        
+        .meta-label {
+            font-size: 11px;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #555555;
+        }
+        
+        .meta-val {
+            font-size: 14px;
+            margin-top: 3px;
+        }
+        
+        .cover-footer {
+            text-align: center;
+            font-size: 11px;
+            border-top: 1px dashed #000000;
+            padding-top: 15px;
+        }
+        
+        /* Document Content */
+        .content-wrapper {
+            padding: 60px;
+        }
+        
+        .page-break {
+            page-break-before: always;
+        }
+        
+        h2 {
+            font-size: 18px;
+            border-bottom: 1px solid #000000;
+            padding-bottom: 5px;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            page-break-inside: avoid;
+        }
+        
+        h3 {
+            font-size: 15px;
+            margin-top: 25px;
+            margin-bottom: 10px;
+            page-break-inside: avoid;
+        }
+        
+        /* Tables (Plain Academic Style) */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            margin-bottom: 20px;
+            font-size: 12px;
+            page-break-inside: avoid;
+        }
+        
+        th, td {
+            border: 1px solid #000000;
+            padding: 8px 10px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        
+        /* Code snippets (Neutral / Standard) */
+        pre {
+            background-color: #f8f8f8;
+            color: #000000;
+            padding: 12px;
+            border: 1px solid #cccccc;
+            border-radius: 0;
+            overflow-x: auto;
+            font-size: 11px;
+            font-family: 'Courier New', Courier, monospace;
+            margin-top: 12px;
+            margin-bottom: 20px;
+            page-break-inside: avoid;
+        }
+        
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 11px;
+        }
+        
+        p code {
+            background-color: #f2f2f2;
+            padding: 1px 3px;
+            border: 1px solid #dddddd;
+            font-size: 11px;
+        }
+        
+        /* Academic Diagrams (VISIO/DRAW.IO Plain White/Black Style) */
+        .academic-diagram {
+            margin: 25px auto;
+            border: 1px solid #000000;
+            padding: 20px;
+            background-color: #ffffff;
+            max-width: 650px;
+            text-align: center;
+            page-break-inside: avoid;
+        }
+        
+        .diagram-title {
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            border-bottom: 1px solid #000000;
+            padding-bottom: 5px;
+        }
+        
+        .diagram-flow {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .diagram-step {
+            border: 1px solid #000000;
+            padding: 8px 15px;
+            background-color: #ffffff;
+            width: 90%;
+            font-size: 12px;
+            text-align: center;
+        }
+        
+        .diagram-arrow {
+            font-size: 18px;
+            margin: 5px 0;
+            font-weight: bold;
+        }
+        
+        .diagram-decision {
+            border: 1px solid #000000;
+            background-color: #ffffff;
+            width: 90%;
+            padding: 10px;
+            text-align: center;
+        }
+        
+        .decision-paths {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 8px;
+            font-size: 11px;
+            border-top: 1px dashed #000000;
+            padding-top: 5px;
+        }
+        
+        .path {
+            width: 48%;
+        }
+        
+        /* Database matrix (Cold & Normal) */
+        .er-matrix {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            text-align: left;
+        }
+        
+        .er-box {
+            border: 1px solid #000000;
+            background-color: #ffffff;
+        }
+        
+        .er-box-title {
+            background-color: #f2f2f2;
+            border-bottom: 1px solid #000000;
+            padding: 5px 8px;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        
+        .er-box-fields {
+            padding: 8px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 11px;
+            line-height: 1.3;
+        }
+        
+        .er-box-relations {
+            font-size: 10px;
+            font-style: italic;
+            border-top: 1px dashed #cccccc;
+            padding: 4px 8px;
+            text-align: right;
+        }
+        
+        /* Screenshots (Centered, simple black border) */
+        .screenshot-container {
+            margin: 25px 0;
+            text-align: center;
+            page-break-inside: avoid;
+        }
+        
+        .screenshot-container img {
+            max-width: 95%;
+            max-height: 380px;
+            border: 1px solid #000000;
+            border-radius: 0;
+        }
+        
+        .screenshot-caption {
+            font-size: 11px;
+            font-style: italic;
+            margin-top: 8px;
+            text-indent: 0;
+        }
+        
+        /* Badges for recipe tables */
+        .badge-success {
+            font-weight: bold;
+            color: #000000;
+        }
+        
+        /* TOC List */
+        .toc-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 15px;
+        }
+        
+        .toc-list li {
+            margin-bottom: 6px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .toc-dots {
+            flex-grow: 1;
+            border-bottom: 1px dotted #000000;
+            margin: 0 10px;
+            position: relative;
+            top: -4px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- COVER PAGE (Mundiapolis) -->
+    <div class="cover-page">
+        <div class="cover-header">
+            <div class="institution-container">
+                <div class="institution-name">Université Mundiapolis</div>
+                <div class="course-name">Module : Conception de Systèmes d’Information</div>
+            </div>
+            <img class="university-logo" src="https://honoris.net/wp-content/uploads/2022/05/Mundiapolis.jpg" alt="Logo Mundiapolis" />
+        </div>
+        
+        <div class="cover-body">
+            <div class="doc-tag">Rapport Examen Final</div>
+            <div class="doc-title">Conception et Implémentation d’un SI sous Odoo 17</div>
+            <div class="doc-subject">Sujet : Gestion d’une agence de voyages</div>
+            <div style="font-size: 13px;">Développement du module métier spécifique : <code>travel_agency_management</code></div>
+        </div>
+        
+        <div class="cover-metadata">
+            <div class="meta-item">
+                <div class="meta-label">Étudiant</div>
+                <div class="meta-val">Anouar Mohamed</div>
+            </div>
+            <div class="meta-item">
+                <div class="meta-label">Date de soumission</div>
+                <div class="meta-val">10 Juin 2026</div>
+            </div>
+            <div class="meta-item">
+                <div class="meta-label">Enseignant / Tuteur</div>
+                <div class="meta-val"></div>
+            </div>
+            <div class="meta-item">
+                <div class="meta-label">Année Universitaire</div>
+                <div class="meta-val">2025 - 2026</div>
+            </div>
+        </div>
+        
+        <div class="cover-footer">
+            Examen Final — Université Mundiapolis — Casablanca
+        </div>
+    </div>
+    
+    <div class="content-wrapper">
+        <h1>Rapport de Projet - Examen Final Odoo 17</h1>
+<ul>
+<li><strong>Université</strong> : Université Mundiapolis</li>
+<li><strong>Module</strong> : Conception de Systèmes d’Information</li>
+<li><strong>Projet</strong> : Conception et Implémentation d’un SI sous Odoo 17</li>
+<li><strong>Sujet</strong> : Gestion d’une agence de voyages</li>
+<li><strong>Module Odoo</strong> : <code>travel_agency_management</code></li>
+<li><strong>Étudiant</strong> : Anouar Mohamed</li>
+<li><strong>Année Académique</strong> : 2025 - 2026</li>
+<li><strong>Date</strong> : 10 Juin 2026</li>
+</ul>
+<hr />
+<h2>Table des Matières</h2>
+<ol>
+<li><a href="#1-introduction">Introduction</a></li>
+<li><a href="#2-modelisation-metier-bpmn">Modélisation Métier BPMN</a></li>
+<li><a href="#21-processus-de-reservation-dun-voyage">2.1. Processus de réservation d'un voyage</a></li>
+<li><a href="#22-processus-de-preparation-et-gestion-des-prestations-touristiques">2.2. Processus de préparation et gestion des prestations touristiques</a></li>
+<li><a href="#3-conception-du-systeme-dinformation">Conception du Système d’Information</a></li>
+<li><a href="#31-architecture-fonctionnelle-et-integration">3.1. Architecture fonctionnelle et intégration</a></li>
+<li><a href="#32-modele-de-donnees-relationnel">3.2. Modèle de données relationnel</a></li>
+<li><a href="#33-securite-et-droits-dacces">3.3. Sécurité et droits d'accès</a></li>
+<li><a href="#4-realisation-sous-odoo-17">Réalisation sous Odoo 17</a></li>
+<li><a href="#41-structure-technique-du-module">4.1. Structure technique du module</a></li>
+<li><a href="#42-logique-metier-python">4.2. Logique métier (Python)</a></li>
+<li><a href="#43-interface-utilisateur-xml">4.3. Interface Utilisateur (XML)</a></li>
+<li><a href="#44-workflow-de-validation">4.4. Workflow de validation</a></li>
+<li><a href="#45-integration-commerciale-sale-order">4.5. Intégration commerciale (Sale Order)</a></li>
+<li><a href="#46-rapport-imprimable-qweb-pdf">4.6. Rapport imprimable QWeb PDF</a></li>
+<li><a href="#47-reporting-et-vues-analytiques">4.7. Reporting et vues analytiques</a></li>
+<li><a href="#5-manuel-utilisateur">Manuel Utilisateur</a></li>
+<li><a href="#6-cahier-de-recette--tests-fonctionnels">Cahier de Recette / Tests Fonctionnels</a></li>
+<li><a href="#7-conclusion">Conclusion</a></li>
+</ol>
+<hr />
+<h2>1. Introduction</h2>
+<p>Ce rapport présente les travaux de conception et de réalisation d'un système d'information (SI) sous Odoo 17 pour l'agence de voyages fictive <strong>Atlas Horizon Travel</strong>. L'activité de cette entreprise repose sur l'organisation et la commercialisation de séjours touristiques structurés sous forme de packages avec des départs programmés.</p>
+<h3>Problématique métier</h3>
+<p>La gestion d'une agence de voyages comporte plusieurs contraintes spécifiques :
+1. <strong>Contrôle de la capacité</strong> : Chaque départ programmé possède une limite physique de places (liée aux moyens de transport ou d'hébergement). Une vente excédentaire (surbooking) engendre des litiges commerciaux et des pénalités financières.
+2. <strong>Double saisie des données</strong> : Le manque de centralisation nécessite la recopie des données des clients et des voyageurs depuis la réservation initiale vers les devis commerciaux, la facturation et les billets de voyage.
+3. <strong>Suivi des statuts</strong> : La multiplicité des dossiers nécessite un suivi rigoureux des étapes de validation (de la prise de contact à la confirmation après encaissement).</p>
+<h3>Objectifs du système d'information</h3>
+<p>Pour répondre à ces besoins, le système d'information développé doit :
+* Centraliser le référentiel des destinations et des packages commerciaux.
+* Automatiser le calcul des disponibilités en temps réel.
+* Bloquer les réservations en cas de dépassement de la capacité autorisée.
+* Lier le workflow métier aux fonctions comptables et commerciales standards d'Odoo (Ventes et Facturation).
+* Fournir des vues de reporting analytiques (graphiques et tableaux croisés) pour l'aide à la décision.
+* Générer les documents PDF de confirmation (Bons de réservation).</p>
+<p>L'ERP Odoo 17 a été choisi pour son infrastructure modulaire (MVC), sa persistance de données avec PostgreSQL, et sa gestion native de la sécurité et du chatter collaboratif.</p>
+<hr />
+<div class="page-break"></div><h2>2. Modélisation Métier BPMN</h2>
+<p>La modélisation des processus a été effectuée selon la norme BPMN afin de définir les limites du module personnalisé et d'identifier les interactions avec les modules standards d'Odoo.</p>
+<h3>2.1. Processus de réservation d'un voyage</h3>
+<p>Ce processus décrit l'ensemble des tâches menant de la demande client à la confirmation finale.</p>
+<div class="codehilite"><pre><span></span><code><span class="n">flowchart</span><span class="w"> </span><span class="n">TD</span>
+<span class="w">    </span><span class="n">Start</span><span class="p">([</span><span class="n">Début</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Demande</span><span class="w"> </span><span class="n">client</span><span class="p">])</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">A1</span><span class="p">[</span><span class="n">Agent</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Consulter</span><span class="w"> </span><span class="n">destinations</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">départs</span><span class="w"> </span><span class="n">dans</span><span class="w"> </span><span class="n">Odoo</span><span class="p">]</span>
+<span class="w">    </span><span class="n">A1</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">A2</span><span class="p">[</span><span class="n">Agent</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Proposer</span><span class="w"> </span><span class="n">offre</span><span class="p">]</span>
+<span class="w">    </span><span class="n">A2</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">Decision</span><span class="p">{</span><span class="n">Client</span><span class="w"> </span><span class="n">accepte</span><span class="w"> </span><span class="o">?</span><span class="p">}</span>
+<span class="w">    </span><span class="n">Decision</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="n">Non</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">EndRefused</span><span class="p">([</span><span class="n">Fin</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Refus</span><span class="p">])</span>
+<span class="w">    </span><span class="n">Decision</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="n">Oui</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">A3</span><span class="p">[</span><span class="n">Agent</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Créer</span><span class="w"> </span><span class="n">réservation</span><span class="w"> </span><span class="n">travel</span><span class="p">.</span><span class="n">booking</span><span class="p">]</span>
+<span class="w">    </span><span class="n">A3</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">A4</span><span class="p">[</span><span class="n">Agent</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Saisir</span><span class="w"> </span><span class="n">voyageurs</span><span class="w"> </span><span class="n">travel</span><span class="p">.</span><span class="n">passenger</span><span class="p">]</span>
+<span class="w">    </span><span class="n">A4</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">A5</span><span class="p">[</span><span class="n">Agent</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Soumettre</span><span class="w"> </span><span class="n">réservation</span><span class="p">]</span>
+<span class="w">    </span><span class="n">A5</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">R1</span><span class="p">[</span><span class="n">Responsable</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Vérifier</span><span class="w"> </span><span class="n">places</span><span class="w"> </span><span class="n">disponibles</span><span class="p">]</span>
+<span class="w">    </span><span class="n">R1</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">CheckSeats</span><span class="p">{</span><span class="n">Places</span><span class="w"> </span><span class="n">disponibles</span><span class="w"> </span><span class="o">?</span><span class="p">}</span>
+<span class="w">    </span><span class="n">CheckSeats</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="n">Non</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">Alternative</span><span class="p">[</span><span class="n">Agent</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Proposer</span><span class="w"> </span><span class="n">autre</span><span class="w"> </span><span class="n">départ</span><span class="p">]</span>
+<span class="w">    </span><span class="n">Alternative</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">A2</span>
+<span class="w">    </span><span class="n">CheckSeats</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="n">Oui</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">R2</span><span class="p">[</span><span class="n">Responsable</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Approuver</span><span class="w"> </span><span class="n">réservation</span><span class="p">]</span>
+<span class="w">    </span><span class="n">R2</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">O1</span><span class="p">[</span><span class="n">Odoo</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Générer</span><span class="w"> </span><span class="n">devis</span><span class="w"> </span><span class="n">de</span><span class="w"> </span><span class="n">vente</span><span class="w"> </span><span class="n">sale</span><span class="p">.</span><span class="n">order</span><span class="p">]</span>
+<span class="w">    </span><span class="n">O1</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">C1</span><span class="p">[</span><span class="n">Client</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Confirmer</span><span class="w"> </span><span class="n">le</span><span class="w"> </span><span class="n">devis</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">payer</span><span class="p">]</span>
+<span class="w">    </span><span class="n">C1</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">O2</span><span class="p">[</span><span class="n">Odoo</span><span class="w"> </span><span class="n">Standard</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Valider</span><span class="w"> </span><span class="n">facture</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">paiement</span><span class="p">]</span>
+<span class="w">    </span><span class="n">O2</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">O3</span><span class="p">[</span><span class="n">Odoo</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Passer</span><span class="w"> </span><span class="n">réservation</span><span class="w"> </span><span class="n">à</span><span class="w"> </span><span class="n">l</span><span class="err">&#39;</span><span class="n">état</span><span class="w"> </span><span class="n">Confirmé</span><span class="p">]</span>
+<span class="w">    </span><span class="n">O3</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">A6</span><span class="p">[</span><span class="n">Agent</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Imprimer</span><span class="w"> </span><span class="n">le</span><span class="w"> </span><span class="n">bon</span><span class="w"> </span><span class="n">de</span><span class="w"> </span><span class="n">réservation</span><span class="w"> </span><span class="n">PDF</span><span class="p">]</span>
+<span class="w">    </span><span class="n">A6</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">EndSuccess</span><span class="p">([</span><span class="n">Fin</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Voyage</span><span class="w"> </span><span class="n">réservé</span><span class="p">])</span>
+</code></pre></div>
+
+<h4>Rôles et acteurs :</h4>
+<ul>
+<li><strong>Le Client</strong> : Exprime la demande, accepte l'offre et confirme par le paiement.</li>
+<li><strong>L'Agent de Voyages</strong> : Gère la saisie des données, la soumission et l'impression des documents.</li>
+<li><strong>Le Responsable Agence</strong> : Valide l'adéquation de la capacité et approuve la réservation.</li>
+<li><strong>Le SI Odoo</strong> : Exécute le calcul de capacité, génère le devis dans le module Ventes et produit le bon de réservation PDF.</li>
+</ul>
+<h4>Automatisation :</h4>
+<p>Les étapes de saisie de réservation, de contrôle de capacité et de production du PDF sont gérées par le module personnalisé. La facturation et l'encaissement reposent sur le module standard d'Odoo.</p>
+<hr />
+<h3>2.2. Processus de préparation et gestion des prestations touristiques</h3>
+<p>Ce processus décrit la structuration du catalogue de voyages en amont de la saison de vente.</p>
+<div class="codehilite"><pre><span></span><code><span class="n">flowchart</span><span class="w"> </span><span class="n">TD</span>
+<span class="w">    </span><span class="n">Start</span><span class="p">([</span><span class="n">Début</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Conception</span><span class="w"> </span><span class="n">catalogue</span><span class="p">])</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">R1</span><span class="p">[</span><span class="n">Responsable</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Identifier</span><span class="w"> </span><span class="n">destination</span><span class="p">]</span>
+<span class="w">    </span><span class="n">R1</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">A1</span><span class="p">[</span><span class="n">Agent</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Enregistrer</span><span class="w"> </span><span class="n">travel</span><span class="p">.</span><span class="n">destination</span><span class="p">]</span>
+<span class="w">    </span><span class="n">A1</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">A2</span><span class="p">[</span><span class="n">Agent</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Créer</span><span class="w"> </span><span class="n">travel</span><span class="p">.</span><span class="n">package</span><span class="p">]</span>
+<span class="w">    </span><span class="n">A2</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">R2</span><span class="p">[</span><span class="n">Responsable</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Associer</span><span class="w"> </span><span class="n">fournisseurs</span><span class="w"> </span><span class="n">res</span><span class="p">.</span><span class="n">partner</span><span class="p">]</span>
+<span class="w">    </span><span class="n">R2</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">F1</span><span class="p">[</span><span class="n">Fournisseur</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Confirmer</span><span class="w"> </span><span class="n">dispo</span><span class="w"> </span><span class="n">services</span><span class="p">]</span>
+<span class="w">    </span><span class="n">F1</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">CheckDisp</span><span class="p">{</span><span class="n">Services</span><span class="w"> </span><span class="n">confirmés</span><span class="w"> </span><span class="o">?</span><span class="p">}</span>
+<span class="w">    </span><span class="n">CheckDisp</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="n">Non</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">R3</span><span class="p">[</span><span class="n">Responsable</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Changer</span><span class="w"> </span><span class="n">prestataire</span><span class="p">]</span>
+<span class="w">    </span><span class="n">R3</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">R2</span>
+<span class="w">    </span><span class="n">CheckDisp</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="n">Oui</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">A3</span><span class="p">[</span><span class="n">Agent</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Planifier</span><span class="w"> </span><span class="n">départ</span><span class="w"> </span><span class="n">travel</span><span class="p">.</span><span class="n">departure</span><span class="p">]</span>
+<span class="w">    </span><span class="n">A3</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">R4</span><span class="p">[</span><span class="n">Responsable</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Ouvrir</span><span class="w"> </span><span class="n">départ</span><span class="w"> </span><span class="n">aux</span><span class="w"> </span><span class="n">réservations</span><span class="p">]</span>
+<span class="w">    </span><span class="n">R4</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">EndReady</span><span class="p">([</span><span class="n">Fin</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Départ</span><span class="w"> </span><span class="n">commercialisé</span><span class="p">])</span>
+</code></pre></div>
+
+<h4>Rôles et acteurs :</h4>
+<ul>
+<li><strong>Le Responsable Agence</strong> : Identifie les offres, négocie avec les prestataires hôteliers/transports et prend la décision d'ouverture.</li>
+<li><strong>L'Agent de Voyages</strong> : Effectue la saisie des données techniques (packages, départs) dans Odoo.</li>
+<li><strong>Le Fournisseur</strong> : Valide la faisabilité des services d'hébergement ou de transport.</li>
+<li><strong>Le SI Odoo</strong> : Centralise le catalogue et suit la capacité globale.</li>
+</ul>
+<hr />
+<div class="page-break"></div><h2>3. Conception du Système d’Information</h2>
+<p>La structure du système d'information repose sur la séparation des rôles et sur l'utilisation rationnelle des modules standards de l'ERP.</p>
+<h3>3.1. Architecture fonctionnelle et intégration</h3>
+<p>Le système est composé de deux blocs :
+1. <strong>Modules standards d'Odoo</strong> :
+   * <code>contacts</code> : Permet la centralisation des fiches clients et des prestataires (hôtels, transporteurs) sous la table <code>res.partner</code>.
+   * <code>sale_management</code> : Gère le cycle de vie du devis et de la commande commerciale via <code>sale.order</code>.
+   * <code>account</code> : Gère la facturation client standard et le lettrage des paiements.
+   * <code>mail</code> : Assure la traçabilité des modifications et le chatter sur la fiche réservation.
+2. <strong>Module personnalisé (<code>travel_agency_management</code>)</strong> :
+   * Définit les tables spécifiques de l'activité voyage.
+   * Valide les contraintes de date et de prix.
+   * Implémente le workflow d'approbation et l'interdiction de surbooking.</p>
+<h3>3.2. Modèle de données relationnel</h3>
+<p>Le modèle relationnel s'articule autour des objets Odoo suivants :</p>
+<div class="codehilite"><pre><span></span><code>erDiagram
+    RES_COUNTRY ||--o{ TRAVEL_DESTINATION : &quot;contient&quot;
+    TRAVEL_DESTINATION ||--o{ TRAVEL_PACKAGE : &quot;propose&quot;
+    TRAVEL_PACKAGE ||--o{ TRAVEL_DEPARTURE : &quot;planifie&quot;
+    TRAVEL_DEPARTURE ||--o{ TRAVEL_BOOKING : &quot;reçoit&quot;
+    TRAVEL_BOOKING ||--o{ TRAVEL_PASSENGER : &quot;contient&quot;
+    RES_PARTNER ||--o{ TRAVEL_BOOKING : &quot;client&quot;
+    TRAVEL_BOOKING ||--o| SALE_ORDER : &quot;génère&quot;
+    RES_PARTNER }o--o{ TRAVEL_PACKAGE : &quot;prestataire&quot;
+</code></pre></div>
+
+<ul>
+<li><strong>Destination (<code>travel.destination</code>)</strong> : Contient le nom, le pays (lien vers <code>res.country</code>), la ville, la description et l'image.</li>
+<li><strong>Package (<code>travel.package</code>)</strong> : Représente l'offre vendable (durée, prix, services inclus). Il est lié à plusieurs prestataires fournisseurs (<code>res.partner</code>).</li>
+<li><strong>Départ (<code>travel.departure</code>)</strong> : Planification physique d'un package à une date donnée avec une capacité maximale.</li>
+<li><strong>Réservation (<code>travel.booking</code>)</strong> : Pivot du workflow. Elle associe un client, un package, un départ et une liste de voyageurs. Elle pointe vers la commande de vente <code>sale.order</code>.</li>
+<li><strong>Voyageur (<code>travel.passenger</code>)</strong> : Contient l'identité de chaque passager, son passeport, sa nationalité, son âge et sa réservation parente.</li>
+</ul>
+<h3>3.3. Sécurité et droits d'accès</h3>
+<p>La sécurité assure l'intégrité des données financières et opérationnelles :
+* <strong>Groupes d'utilisateurs (<code>security/security.xml</code>)</strong> :
+  * <em>Utilisateur Agence de Voyages</em> : Accès en lecture seule sur les destinations, packages et départs. Droit de création et de modification uniquement sur ses propres réservations.
+  * <em>Responsable Agence de Voyages</em> : Accès complet (lecture, écriture, suppression) sur tous les modèles. Droit exclusif d'approbation.
+* <strong>Règles d'enregistrement (Record Rules - <code>security/record_rules.xml</code>)</strong> :
+  * Un agent commercial ne peut afficher et modifier que les réservations dont il est le créateur (<code>create_uid = user.id</code>) ou le responsable affecté (<code>responsible_user_id = user.id</code>).
+  * Le responsable d'agence dispose d'une règle globale d'accès complet sans restriction.
+* <strong>Droits d'accès globaux (<code>security/ir.model.access.csv</code>)</strong> :
+  * Déclaration des droits CRUD (Create, Read, Update, Delete) par groupe pour chaque table PostgreSQL sous-jacente.</p>
+<hr />
+<div class="page-break"></div><h2>4. Réalisation sous Odoo 17</h2>
+<p>Le développement a été réalisé en conformité avec les standards de l'ORM d'Odoo 17.</p>
+<h3>4.1. Structure technique du module</h3>
+<p>Le code source est organisé selon l'architecture MVC d'Odoo :
+* <code>models/</code> : Fichiers Python définissant le schéma et la logique métier.
+* <code>views/</code> : Fichiers XML décrivant les interfaces (formulaires, listes, graphiques).
+* <code>security/</code> : Déclaration des profils et des droits d'accès.
+* <code>reports/</code> : Définition de l'action d'impression et du template QWeb du bon de réservation.
+* <code>data/</code> : Configuration des séquences automatiques et des données de démonstration.</p>
+<h3>4.2. Logique métier (Python)</h3>
+<p>L'implémentation inclut plusieurs validations critiques :
+* <strong>Calcul des places disponibles</strong> :
+  <code>python
+  @api.depends('booking_ids.state', 'booking_ids.passenger_count', 'capacity')
+  def _compute_seats(self):
+      counted_states = ['approved', 'sale_created', 'confirmed', 'done']
+      for departure in self:
+          booked = sum(b.passenger_count for b in departure.booking_ids if b.state in counted_states)
+          departure.booked_seats = booked
+          departure.available_seats = departure.capacity - booked</code>
+* <strong>Contrôle de surbooking à l'approbation</strong> :
+  <code>python
+  def _ensure_capacity_available(self):
+      for booking in self:
+          if booking.departure_id.available_seats &lt; booking.passenger_count:
+              raise UserError(_("Places insuffisantes sur ce départ. Disponibles: %s, demandées: %s.") % 
+                              (booking.departure_id.available_seats, booking.passenger_count))</code></p>
+<h3>4.3. Interface Utilisateur (XML)</h3>
+<p>Les formulaires XML ont été structurés avec des en-têtes contenant les boutons de workflow et la barre de progression d'état. Les listes (tree views) intègrent des couleurs de décoration (par exemple, rouge pour les départs fermés ou réservations annulées, vert pour les dossiers confirmés).</p>
+<h3>4.4. Workflow de validation</h3>
+<p>Le workflow comporte sept états séquentiels contrôlés par des méthodes Python :
+<code>Brouillon (draft) -&gt; Soumise (submitted) -&gt; Approuvée (approved) -&gt; Devis créé (sale_created) -&gt; Confirmée (confirmed) -&gt; Terminée (done) / Annulée (cancelled)</code></p>
+<h3>4.5. Intégration commerciale (Sale Order)</h3>
+<p>L'action de création de devis vérifie l'absence de doublons, recherche ou instancie l'article standard <code>Voyage organisé</code> (<code>TRAVEL_ORGANISE</code>) configuré comme un service facturable à la commande, puis crée une instance de <code>sale.order</code> avec les lignes valorisées.</p>
+<h3>4.6. Rapport imprimable QWeb PDF</h3>
+<p>Le document imprimable récupère les données de la réservation active et génère un bon officiel contenant : l'identité du client, le descriptif du voyage, la liste complète des passagers avec leur numéro de passeport, et le total financier hors taxe et TTC.</p>
+<h3>4.7. Reporting et vues analytiques</h3>
+<p>L'analyse statistique s'appuie sur une vue pivot et graphique définie en XML. Elle permet de suivre le montant total des ventes et le volume de passagers par package, par destination géographique ou par statut de réservation.</p>
+<hr />
+<div class="page-break"></div><h2>5. Manuel Utilisateur</h2>
+<p>Ce guide décrit les étapes opérationnelles de gestion de l'agence de voyages avec les captures d'écran réelles du système.</p>
+<h3>5.1. Accès au module</h3>
+<p>Une fois connecté, le menu principal <strong>Agence de Voyages</strong> s'affiche dans l'en-tête supérieur d'Odoo.</p>
+<p><div class="screenshot-container">
+        <img src="screenshots/01_menu_principal.png" />
+        <div class="screenshot-caption">Figure 1 - Menu principal du module Agence de Voyages sous Odoo 17</div>
+    </div>
+<em>Figure 1 - Vue du menu principal et de l'architecture générale du module.</em></p>
+<hr />
+<h3>5.2. Gestion des destinations</h3>
+<p>L'utilisateur peut créer et lister les destinations de voyage via <code>Voyages &gt; Destinations</code>.</p>
+<p><div class="screenshot-container">
+        <img src="screenshots/02_liste_destinations.png" />
+        <div class="screenshot-caption">Figure 2 - Vue en liste des destinations touristiques</div>
+    </div>
+<em>Figure 2 - Vue en liste des destinations enregistrées dans le système.</em></p>
+<p><div class="screenshot-container">
+        <img src="screenshots/03_formulaire_destination.png" />
+        <div class="screenshot-caption">Figure 3 - Fiche formulaire de destination avec contrôle d'unicité</div>
+    </div>
+<em>Figure 3 - Fiche de création d'une destination touristique.</em></p>
+<hr />
+<h3>5.3. Gestion des packages</h3>
+<p>Les packages définissent les caractéristiques de l'offre (prix et durée).
+* Ouvrir <code>Voyages &gt; Packages</code>.
+* Renseigner la fiche et cliquer sur <code>Publier</code> pour l'activer.</p>
+<p><div class="screenshot-container">
+        <img src="screenshots/04_liste_packages.png" />
+        <div class="screenshot-caption">Figure 4 - Vue en liste des packages touristiques</div>
+    </div>
+<em>Figure 4 - Liste des packages touristiques disponibles.</em></p>
+<p><div class="screenshot-container">
+        <img src="screenshots/05_formulaire_package.png" />
+        <div class="screenshot-caption">Figure 5 - Formulaire d'un package de voyage</div>
+    </div>
+<em>Figure 5 - Formulaire d'édition d'un package commercial.</em></p>
+<hr />
+<h3>5.4. Planification des départs</h3>
+<p>Les départs réels sont créés via <code>Voyages &gt; Départs</code>. Ils portent sur des packages publiés.
+* Saisir la date de départ et la capacité en places.
+* Cliquer sur <code>Ouvrir</code> pour autoriser les réservations.</p>
+<p><div class="screenshot-container">
+        <img src="screenshots/06_liste_departs.png" />
+        <div class="screenshot-caption">Figure 6 - Vue en liste des départs planifiés</div>
+    </div>
+<em>Figure 6 - Vue en liste des départs de voyages planifiés.</em></p>
+<p><div class="screenshot-container">
+        <img src="screenshots/07_formulaire_depart.png" />
+        <div class="screenshot-caption">Figure 7 - Formulaire de suivi d'un départ et calcul de la capacité en temps réel</div>
+    </div>
+<em>Figure 7 - Formulaire de suivi de capacité d'un départ.</em></p>
+<hr />
+<h3>5.5. Saisie d'une réservation (Brouillon)</h3>
+<p>Lorsqu'un client effectue une demande :
+* Créer une réservation via le menu <code>Réservations</code>.
+* Sélectionner le client, le package et le départ.
+* Ajouter les voyageurs dans l'onglet <code>Voyageurs</code>. Les prix et totaux se mettent à jour.</p>
+<p><div class="screenshot-container">
+        <img src="screenshots/08_liste_reservations.png" />
+        <div class="screenshot-caption">Figure 8 - Liste des réservations clients</div>
+    </div>
+<em>Figure 8 - Liste générale des réservations clients.</em></p>
+<p><div class="screenshot-container">
+        <img src="screenshots/09_reservation_brouillon.png" />
+        <div class="screenshot-caption">Figure 9 - Fiche de réservation client à l'état Brouillon</div>
+    </div>
+<em>Figure 9 - Saisie d'une réservation à l'état Brouillon.</em></p>
+<hr />
+<h3>5.6. Cycle de validation (Soumission et Approbation)</h3>
+<ul>
+<li>Cliquer sur <code>Soumettre</code> pour figer le dossier voyageur.</li>
+<li>Le responsable clique sur <code>Approuver</code>. Odoo déduit les places correspondantes.</li>
+</ul>
+<p><div class="screenshot-container">
+        <img src="screenshots/10_reservation_soumise.png" />
+        <div class="screenshot-caption">Figure 10 - Fiche de réservation client à l'état Soumise</div>
+    </div>
+<em>Figure 10 - Réservation soumise en attente de validation.</em></p>
+<p><div class="screenshot-container">
+        <img src="screenshots/11_reservation_approuvee.png" />
+        <div class="screenshot-caption">Figure 11 - Fiche de réservation approuvée par le responsable d'agence</div>
+    </div>
+<em>Figure 11 - Réservation approuvée par le responsable d'agence.</em></p>
+<hr />
+<h3>5.7. Génération du devis de vente</h3>
+<ul>
+<li>Cliquer sur <code>Créer le devis</code> pour instancier la commande commerciale standard.</li>
+</ul>
+<p><div class="screenshot-container">
+        <img src="screenshots/12_devis_odoo.png" />
+        <div class="screenshot-caption">Figure 12 - Devis commercial standard Odoo généré à partir de la réservation</div>
+    </div>
+<em>Figure 12 - Commande de vente standard Odoo générée automatiquement.</em></p>
+<hr />
+<h3>5.8. Confirmation finale</h3>
+<ul>
+<li>Confirmer la commande de vente standard.</li>
+<li>Cliquer sur <code>Confirmer la réservation</code> sur la fiche réservation.</li>
+</ul>
+<p><div class="screenshot-container">
+        <img src="screenshots/13_reservation_confirmee.png" />
+        <div class="screenshot-caption">Figure 13 - Fiche de réservation confirmée après confirmation du devis</div>
+    </div>
+<em>Figure 13 - Réservation confirmée après confirmation de la vente.</em></p>
+<hr />
+<h3>5.9. Édition du document client</h3>
+<ul>
+<li>Cliquer sur <code>Imprimer le bon</code> pour générer la pièce justificative PDF.</li>
+</ul>
+<p><div class="screenshot-container">
+        <img src="screenshots/14_bon_reservation_pdf.png" />
+        <div class="screenshot-caption">Figure 14 - Rendu du document PDF du bon de réservation client</div>
+    </div>
+<em>Figure 14 - Rendu du document PDF du bon de réservation.</em></p>
+<hr />
+<h3>5.10. Outils analytiques (Reporting)</h3>
+<p>Le module propose deux outils de synthèse : la vue graphique et la vue pivot.</p>
+<p><div class="screenshot-container">
+        <img src="screenshots/15_vue_graph_reservations.png" />
+        <div class="screenshot-caption">Figure 15 - Vue graphique d'analyse des réservations par destination</div>
+    </div>
+<em>Figure 15 - Graphique de répartition des réservations par destination.</em></p>
+<p><div class="screenshot-container">
+        <img src="screenshots/16_vue_pivot_reservations.png" />
+        <div class="screenshot-caption">Figure 16 - Tableau croisé pivot d'analyse des montants facturés</div>
+    </div>
+<em>Figure 16 - Tableau croisé pivot d'analyse des montants facturés.</em></p>
+<hr />
+<h3>5.11. Administration de la sécurité</h3>
+<p>L'attribution des droits d'accès se fait dans la fiche utilisateur d'Odoo.</p>
+<p><div class="screenshot-container">
+        <img src="screenshots/17_groupes_securite.png" />
+        <div class="screenshot-caption">Figure 17 - Paramétrage des groupes d'accès utilisateurs sous Odoo 17</div>
+    </div>
+<em>Figure 17 - Paramétrage des rôles utilisateurs et des groupes d'accès.</em></p>
+<hr />
+<div class="page-break"></div><h2>6. Cahier de Recette / Tests Fonctionnels</h2>
+<p>Ce tableau recense l'ensemble des scénarios de test exécutés pour valider la conformité du système d'information.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">ID</th>
+<th style="text-align: left;">Scénario de test</th>
+<th style="text-align: left;">Étapes de test</th>
+<th style="text-align: left;">Résultat attendu</th>
+<th style="text-align: left;">Résultat obtenu</th>
+<th style="text-align: center;">Statut</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>T01</strong></td>
+<td style="text-align: left;">Installation du module</td>
+<td style="text-align: left;">Installer le package <code>travel_agency_management</code>.</td>
+<td style="text-align: left;">Installation sans erreur, création des structures en base.</td>
+<td style="text-align: left;">Conforme</td>
+<td style="text-align: center;"><strong><span class="badge-success">Succès</span></strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>T02</strong></td>
+<td style="text-align: left;">Création d’une destination</td>
+<td style="text-align: left;">Saisir une destination unique avec ville et pays.</td>
+<td style="text-align: left;">Enregistrement réussi de la fiche.</td>
+<td style="text-align: left;">Conforme</td>
+<td style="text-align: center;"><strong><span class="badge-success">Succès</span></strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>T03</strong></td>
+<td style="text-align: left;">Test d'unicité destination</td>
+<td style="text-align: left;">Tenter de créer une destination identique (ville/pays).</td>
+<td style="text-align: left;">Odoo refuse la validation avec une boîte d'erreur.</td>
+<td style="text-align: left;">Blocage OK</td>
+<td style="text-align: center;"><strong><span class="badge-success">Succès</span></strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>T04</strong></td>
+<td style="text-align: left;">Création d'un package</td>
+<td style="text-align: left;">Renseigner durée et prix puis enregistrer.</td>
+<td style="text-align: left;">Package créé en état Brouillon.</td>
+<td style="text-align: left;">Conforme</td>
+<td style="text-align: center;"><strong><span class="badge-success">Succès</span></strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>T05</strong></td>
+<td style="text-align: left;">Test de valeurs négatives</td>
+<td style="text-align: left;">Saisir une durée de 0 ou un tarif négatif sur un package.</td>
+<td style="text-align: left;">Rejet immédiat par l'ORM.</td>
+<td style="text-align: left;">Rejet OK</td>
+<td style="text-align: center;"><strong><span class="badge-success">Succès</span></strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>T06</strong></td>
+<td style="text-align: left;">Publication d'un package</td>
+<td style="text-align: left;">Cliquer sur le bouton <code>Publier</code> d'un package.</td>
+<td style="text-align: left;">Le statut passe à <code>Publié</code>.</td>
+<td style="text-align: left;">Conforme</td>
+<td style="text-align: center;"><strong><span class="badge-success">Succès</span></strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>T07</strong></td>
+<td style="text-align: left;">Création de départ</td>
+<td style="text-align: left;">Programmer un départ avec capacité et passer à <code>Ouvert</code>.</td>
+<td style="text-align: left;">Le départ est ouvert et accessible.</td>
+<td style="text-align: left;">Conforme</td>
+<td style="text-align: center;"><strong><span class="badge-success">Succès</span></strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>T08</strong></td>
+<td style="text-align: left;">Saisie de réservation</td>
+<td style="text-align: left;">Initialiser une réservation avec client, package et départ.</td>
+<td style="text-align: left;">Le système préremplit le tarif unitaire.</td>
+<td style="text-align: left;">Conforme</td>
+<td style="text-align: center;"><strong><span class="badge-success">Succès</span></strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>T09</strong></td>
+<td style="text-align: left;">Saisie voyageurs</td>
+<td style="text-align: left;">Ajouter deux voyageurs et saisir leur date de naissance.</td>
+<td style="text-align: left;">Calcul automatique de l'âge et montant total mis à jour.</td>
+<td style="text-align: left;">Conforme</td>
+<td style="text-align: center;"><strong><span class="badge-success">Succès</span></strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>T10</strong></td>
+<td style="text-align: left;">Soumission réservation</td>
+<td style="text-align: left;">Cliquer sur <code>Soumettre</code>.</td>
+<td style="text-align: left;">Statut mis à jour. Échoue si aucun voyageur n'est saisi.</td>
+<td style="text-align: left;">Conforme</td>
+<td style="text-align: center;"><strong><span class="badge-success">Succès</span></strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>T11</strong></td>
+<td style="text-align: left;">Approbation</td>
+<td style="text-align: left;">Cliquer sur <code>Approuver</code> (rôle responsable).</td>
+<td style="text-align: left;">Statut mis à jour. Les places du départ diminuent.</td>
+<td style="text-align: left;">Conforme</td>
+<td style="text-align: center;"><strong><span class="badge-success">Succès</span></strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>T12</strong></td>
+<td style="text-align: left;">Test de surbooking</td>
+<td style="text-align: left;">Saisir une réservation excédant la capacité restante et approuver.</td>
+<td style="text-align: left;">Odoo bloque l'action et lève une exception <code>UserError</code>.</td>
+<td style="text-align: left;">Blocage OK</td>
+<td style="text-align: center;"><strong><span class="badge-success">Succès</span></strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>T13</strong></td>
+<td style="text-align: left;">Facturation devis</td>
+<td style="text-align: left;">Cliquer sur <code>Créer le devis</code> depuis la réservation approuvée.</td>
+<td style="text-align: left;">Un devis <code>sale.order</code> est généré.</td>
+<td style="text-align: left;">Conforme</td>
+<td style="text-align: center;"><strong><span class="badge-success">Succès</span></strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>T14</strong></td>
+<td style="text-align: left;">Confirmation finale</td>
+<td style="text-align: left;">Confirmer le devis puis cliquer sur <code>Confirmer la réservation</code>.</td>
+<td style="text-align: left;">La réservation passe à l'état <code>Confirmée</code>.</td>
+<td style="text-align: left;">Conforme</td>
+<td style="text-align: center;"><strong><span class="badge-success">Succès</span></strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>T15</strong></td>
+<td style="text-align: left;">Édition du PDF</td>
+<td style="text-align: left;">Cliquer sur <code>Imprimer le bon</code> sur une réservation validée.</td>
+<td style="text-align: left;">Un document PDF conforme est téléchargé.</td>
+<td style="text-align: left;">Conforme</td>
+<td style="text-align: center;"><strong><span class="badge-success">Succès</span></strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<div class="page-break"></div><h2>7. Conclusion</h2>
+<p>Le développement du module spécifique <code>travel_agency_management</code> sous Odoo 17 a permis d'apporter une solution structurée aux besoins de gestion de l'agence <strong>Atlas Horizon Travel</strong>.</p>
+<h3>Bilan opérationnel</h3>
+<ul>
+<li><strong>Disponibilités fiables</strong> : Le calcul automatique de capacité et le contrôle de surbooking fiabilisent les réservations.</li>
+<li><strong>Intégration comptable</strong> : La liaison avec le module Ventes standard élimine la ressaisie des informations et simplifie la facturation.</li>
+<li><strong>Sécurité des opérations</strong> : La distinction nette entre agents et responsables sécurise le flux de validation.</li>
+</ul>
+<h3>Limitations et perspectives</h3>
+<ul>
+<li><strong>Gestion des achats</strong> : Dans cette version, les prestataires sont enregistrés en tant que contacts fournisseurs, mais le module ne déclenche pas de commande d'achat automatique (<code>purchase.order</code>). L'intégration complète du module standard Achats constitue la principale perspective d'évolution.</li>
+<li><strong>Automatisation du workflow</strong> : Le passage de la réservation à l'état confirmé nécessite une action manuelle après le paiement. Une synchronisation automatique lors de la validation de la facture standard pourrait être envisagée.</li>
+</ul>
+    </div>
+
+</body>
+</html>

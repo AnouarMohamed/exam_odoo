@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Rapport de Projet - Examen Final Odoo 17</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 2.5cm;
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Times New Roman', Times, Georgia, serif;
+            line-height: 1.6;
+            color: #000000;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+        }
+        
+        /* Typography adjustments to avoid Markdown formatting issues */
+        p {
+            margin-top: 0;
+            margin-bottom: 12px;
+            text-align: justify;
+            text-indent: 1.5em;
+        }
+        
+        h1 + p, h2 + p, h3 + p, h4 + p, figure + p, table + p {
+            text-indent: 0;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Times New Roman', Times, Georgia, serif;
+            color: #000000;
+            font-weight: bold;
+            margin-top: 0;
+            text-indent: 0;
+            page-break-inside: avoid;
+        }
+        
+        /* Cover Page Layout */
+        .cover-page {
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 40px 0;
+            border-bottom: 2px solid #000000;
+            page-break-after: always;
+        }
+        
+        .cover-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #000000;
+            padding-bottom: 15px;
+        }
+        
+        .institution-name {
+            font-size: 20px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .course-name {
+            font-size: 12px;
+            margin-top: 5px;
+            color: #333333;
+        }
+        
+        .university-logo {
+            height: 60px;
+            width: auto;
+        }
+        
+        .cover-body {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .doc-tag {
+            font-size: 12px;
+            font-weight: bold;
+            border: 1px solid #000000;
+            padding: 5px 12px;
+            margin-bottom: 25px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+        
+        .doc-title {
+            font-size: 26px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            line-height: 1.3;
+        }
+        
+        .doc-subject {
+            font-size: 18px;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+        
+        .doc-details {
+            font-size: 13px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        
+        .cover-metadata {
+            border-top: 1px solid #000000;
+            padding-top: 25px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            text-align: left;
+        }
+        
+        .meta-label {
+            font-size: 10px;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #555555;
+            margin-bottom: 2px;
+        }
+        
+        .meta-val {
+            font-size: 13px;
+            font-weight: bold;
+        }
+        
+        .cover-footer {
+            text-align: center;
+            font-size: 10px;
+            margin-top: 30px;
+            color: #555555;
+        }
+        
+        /* Table of Contents */
+        .toc-container {
+            page-break-after: always;
+            padding-top: 20px;
+        }
+        
+        .toc-container h2 {
+            border-bottom: 2px solid #000000;
+            padding-bottom: 5px;
+            margin-bottom: 25px;
+        }
+        
+        .toc-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .toc-list li {
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+        
+        .toc-name {
+            font-weight: bold;
+        }
+        
+        .toc-dots {
+            flex-grow: 1;
+            border-bottom: 1px dotted #000000;
+            margin: 0 10px;
+            position: relative;
+            top: -4px;
+        }
+        
+        .toc-page {
+            font-weight: bold;
+        }
+        
+        /* General layout headings */
+        h2 {
+            font-size: 18px;
+            border-bottom: 1px solid #000000;
+            padding-bottom: 3px;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            page-break-before: always;
+        }
+        
+        /* Skip page break for the very first H2 after TOC */
+        .content-wrapper > h2:first-of-type {
+            page-break-before: avoid;
+        }
+        
+        h3 {
+            font-size: 14px;
+            margin-top: 25px;
+            margin-bottom: 12px;
+        }
+        
+        /* Standard tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            margin-bottom: 15px;
+            font-size: 12px;
+            page-break-inside: avoid;
+        }
+        
+        th, td {
+            border: 1px solid #000000;
+            padding: 6px 8px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        
+        /* Code snippets */
+        pre {
+            background-color: #f8f8f8;
+            color: #000000;
+            padding: 10px;
+            border: 1px solid #cccccc;
+            overflow-x: auto;
+            font-size: 11px;
+            font-family: 'Courier New', Courier, monospace;
+            margin-top: 10px;
+            margin-bottom: 15px;
+            page-break-inside: avoid;
+        }
+        
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 11px;
+        }
+        
+        /* Figures & diagrams */
+        .diagram-wrapper {
+            text-align: center;
+            margin: 25px 0;
+            page-break-inside: avoid;
+        }
+        
+        .diagram-wrapper svg {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #000000;
+            background-color: #ffffff;
+            padding: 10px;
+        }
+        
+        figure {
+            margin: 25px 0;
+            text-align: center;
+            page-break-inside: avoid;
+        }
+        
+        figure img {
+            max-width: 95%;
+            max-height: 350px;
+            border: 1px solid #000000;
+        }
+        
+        figcaption {
+            font-size: 11px;
+            font-style: italic;
+            margin-top: 8px;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .badge-success {
+            font-weight: bold;
+            text-decoration: underline;
+        }
+        
+        /* List formatting fix */
+        ul, ol {
+            margin-top: 5px;
+            margin-bottom: 10px;
+            padding-left: 20px;
+        }
+        
+        li {
+            margin-bottom: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- COVER PAGE -->
+    <div class="cover-page">
+        <div class="cover-header">
+            <div class="institution-container">
+                <div class="institution-name">Université Mundiapolis</div>
+                <div class="course-name">Module : Conception de Systèmes d’Information</div>
+            </div>
+            <img class="university-logo" src="https://honoris.net/wp-content/uploads/2022/05/Mundiapolis.jpg" alt="Logo Mundiapolis" />
+        </div>
+        
+        <div class="cover-body">
+            <div class="doc-tag">Rapport d’Examen Final</div>
+            <div class="doc-title">Conception et Implémentation d’un SI sous Odoo 17</div>
+            <div class="doc-subject">Sujet : Gestion d’une agence de voyages</div>
+            <div class="doc-details">Module Odoo technique : <code>travel_agency_management</code></div>
+        </div>
+        
+        <div class="cover-metadata">
+            <div>
+                <div class="meta-label">Étudiant</div>
+                <div class="meta-val">Anouar Mohamed</div>
+            </div>
+            <div>
+                <div class="meta-label">Date de soumission</div>
+                <div class="meta-val">10 Juin 2026</div>
+            </div>
+            <div>
+                <div class="meta-label">Enseignant / Tuteur</div>
+                <div class="meta-val"></div>
+            </div>
+            <div>
+                <div class="meta-label">Année Universitaire</div>
+                <div class="meta-val">2025 - 2026</div>
+            </div>
+        </div>
+        
+        <div class="cover-footer">
+            Examen Final — Université Mundiapolis — Casablanca
+        </div>
+    </div>
+    
+    <!-- TABLE OF CONTENTS (Visio Style dots leaders) -->
+    <div class="toc-container">
+        <h2>Table des Matières</h2>
+        <ul class="toc-list">
+            <li><span class="toc-name">1. Introduction</span><span class="toc-dots"></span><span class="toc-page">2</span></li>
+            <li><span class="toc-name">2. Modélisation métier BPMN</span><span class="toc-dots"></span><span class="toc-page">3</span></li>
+            <li><span class="toc-name">&nbsp;&nbsp;&nbsp;&nbsp;2.1 Processus de réservation d’un voyage</span><span class="toc-dots"></span><span class="toc-page">3</span></li>
+            <li><span class="toc-name">&nbsp;&nbsp;&nbsp;&nbsp;2.2 Processus de préparation des prestations touristiques</span><span class="toc-dots"></span><span class="toc-page">5</span></li>
+            <li><span class="toc-name">3. Conception du système d’information</span><span class="toc-dots"></span><span class="toc-page">6</span></li>
+            <li><span class="toc-name">&nbsp;&nbsp;&nbsp;&nbsp;3.1 Modules Odoo standards utilisés</span><span class="toc-dots"></span><span class="toc-page">6</span></li>
+            <li><span class="toc-name">&nbsp;&nbsp;&nbsp;&nbsp;3.2 Rôle du module spécifique</span><span class="toc-dots"></span><span class="toc-page">6</span></li>
+            <li><span class="toc-name">&nbsp;&nbsp;&nbsp;&nbsp;3.3 Diagramme du modèle de données</span><span class="toc-dots"></span><span class="toc-page">7</span></li>
+            <li><span class="toc-name">&nbsp;&nbsp;&nbsp;&nbsp;3.4 Description des principales entités</span><span class="toc-dots"></span><span class="toc-page">8</span></li>
+            <li><span class="toc-name">&nbsp;&nbsp;&nbsp;&nbsp;3.5 Sécurité et droits d'accès</span><span class="toc-dots"></span><span class="toc-page">8</span></li>
+            <li><span class="toc-name">4. Réalisation et Manuel Utilisateur</span><span class="toc-dots"></span><span class="toc-page">9</span></li>
+            <li><span class="toc-name">&nbsp;&nbsp;&nbsp;&nbsp;4.1 Réalisation technique sous Odoo 17</span><span class="toc-dots"></span><span class="toc-page">9</span></li>
+            <li><span class="toc-name">&nbsp;&nbsp;&nbsp;&nbsp;4.2 Manuel Utilisateur avec Captures d'Écran</span><span class="toc-dots"></span><span class="toc-page">11</span></li>
+            <li><span class="toc-name">&nbsp;&nbsp;&nbsp;&nbsp;4.3 Cahier de Recette / Tests Fonctionnels</span><span class="toc-dots"></span><span class="toc-page">16</span></li>
+            <li><span class="toc-name">5. Conclusion</span><span class="toc-dots"></span><span class="toc-page">18</span></li>
+        </ul>
+    </div>
+
+    <!-- MAIN BODY -->
+    <div class="content-wrapper">
+        <h2>1. Introduction</h2>
+<p>Ce rapport présente les travaux de conception et de réalisation d'un système d'information (SI) sous Odoo 17 pour la gestion d'une agence de voyages. L'activité de cette agence repose sur l'organisation et la commercialisation de séjours touristiques structurés sous forme de packages avec des départs programmés.</p>
+<h3>Présentation de l'agence</h3>
+<p>L'agence de voyages commercialise des offres de séjours et des circuits packagés. Ces prestations associent le transport, l'hébergement et des activités de loisirs. Chaque package est ensuite planifié à des dates précises avec des contraintes physiques de capacité.</p>
+<h3>Problématique métier</h3>
+<p>L'organisation des départs nécessite le suivi rigoureux de plusieurs contraintes opérationnelles :</p>
+<ul>
+<li>
+<p><strong>Calcul de capacité et surbooking</strong> : Chaque départ de voyage possède un nombre de places limité. L'absence de contrôle dynamique peut entraîner une vente excédentaire par rapport aux places de transport ou d'hébergement disponibles.</p>
+</li>
+<li>
+<p><strong>Double saisie des données</strong> : Le manque d'intégration logicielle oblige les agents à ressaisir manuellement les informations des voyageurs (noms, dates de naissance, numéros de passeport) lors des phases de facturation et d'impression des bons de voyage.</p>
+</li>
+<li>
+<p><strong>Traçabilité des dossiers</strong> : Il est nécessaire de suivre précisément l'avancement de chaque réservation, de sa création à la facturation comptable finale.</p>
+</li>
+</ul>
+<h3>Objectifs du système d'information</h3>
+<p>Le système d'information mis en place doit répondre aux objectifs suivants :</p>
+<ul>
+<li>
+<p>Centraliser le catalogue des destinations géographiques et des packages.</p>
+</li>
+<li>
+<p>Automatiser le calcul de la disponibilité en temps réel sur les départs ouverts.</p>
+</li>
+<li>
+<p>Bloquer les ventes si le nombre de places demandées excède la capacité résiduelle.</p>
+</li>
+<li>
+<p>Intégrer les dossiers de réservation avec le module standard des Ventes d'Odoo.</p>
+</li>
+<li>
+<p>Fournir un tableau de bord et des vues analytiques pour suivre la performance commerciale.</p>
+</li>
+<li>
+<p>Imprimer le Bon de réservation officiel contenant toutes les données réglementaires des voyageurs.</p>
+</li>
+</ul>
+<h3>Choix technologique d'Odoo 17</h3>
+<p>Pour implémenter ce système d'information, la plateforme ERP Odoo 17 a été sélectionnée. Elle offre une structure modulaire s'appuyant sur l'ORM Python et une base relationnelle PostgreSQL. Cette architecture permet de développer les objets métiers spécifiques tout en tirant parti des applications comptables et commerciales natives de l'ERP.</p>
+<hr />
+<h2>2. Modélisation métier BPMN</h2>
+<p>La modélisation des processus métiers a été réalisée en respectant la norme BPMN afin de structurer les flux et d'identifier la répartition des tâches entre les développements spécifiques et les fonctions natives d'Odoo.</p>
+<h3>2.1 Processus de réservation d’un voyage</h3>
+<p>Ce diagramme décrit les actions successives menant de la demande client à la confirmation finale et à la remise du titre de transport.</p>
+<div class="diagram-wrapper"><svg width="600" height="1280" viewBox="0 0 600 1280" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#000000" />
+    </marker>
+  </defs>
+
+  <!-- Swimlane Column Separators -->
+  <line x1="150" y1="0" x2="150" y2="1280" stroke="#cccccc" stroke-width="1.0" stroke-dasharray="3,3" />
+  <line x1="300" y1="0" x2="300" y2="1280" stroke="#cccccc" stroke-width="1.0" stroke-dasharray="3,3" />
+  <line x1="450" y1="0" x2="450" y2="1280" stroke="#cccccc" stroke-width="1.0" stroke-dasharray="3,3" />
+
+  <!-- Column Headers -->
+  <rect x="0" y="0" width="150" height="40" fill="#f8fafc" stroke="#000000" stroke-width="1.0" />
+  <text x="75" y="24" font-family="'Times New Roman', Georgia, serif" font-size="11px" text-anchor="middle" font-weight="bold">Client</text>
+
+  <rect x="150" y="0" width="150" height="40" fill="#f8fafc" stroke="#000000" stroke-width="1.0" />
+  <text x="225" y="24" font-family="'Times New Roman', Georgia, serif" font-size="11px" text-anchor="middle" font-weight="bold">Agent de voyages</text>
+
+  <rect x="300" y="0" width="150" height="40" fill="#f8fafc" stroke="#000000" stroke-width="1.0" />
+  <text x="375" y="24" font-family="'Times New Roman', Georgia, serif" font-size="11px" text-anchor="middle" font-weight="bold">Responsable agence</text>
+
+  <rect x="450" y="0" width="150" height="40" fill="#f8fafc" stroke="#000000" stroke-width="1.0" />
+  <text x="525" y="24" font-family="'Times New Roman', Georgia, serif" font-size="11px" text-anchor="middle" font-weight="bold">SI Odoo 17</text>
+
+  <!-- Connectors -->
+  <path d="M 75,72 L 75,95 L 225,95 L 225,110" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+  <path d="M 225,150 L 225,180" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+  <path d="M 225,220 L 225,245 L 75,245 L 75,265" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+  
+  <!-- Non Path Client -->
+  <path d="M 110,285 L 140,285 L 140,310" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+  
+  <!-- Oui Path Client -->
+  <path d="M 75,305 L 75,335 L 225,335 L 225,350" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+  <path d="M 225,390 L 225,410" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+  <path d="M 225,450 L 225,470" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+  <path d="M 225,510 L 225,535 L 375,535 L 375,550" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+  <path d="M 375,590 L 375,615 L 525,615 L 525,630" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+  
+  <!-- Non Path Seats -->
+  <path d="M 490,650 L 225,650 L 225,680" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+  <path d="M 225,720 L 225,745 L 60,745 L 60,170 L 160,170" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+  
+  <!-- Oui Path Seats -->
+  <path d="M 525,670 L 525,695 L 375,695 L 375,740" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+  <path d="M 375,780 L 375,805 L 525,805 L 525,820" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+  <path d="M 525,860 L 525,885 L 75,885 L 75,900" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+  <path d="M 75,940 L 75,965 L 525,965 L 525,980" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+  <path d="M 525,1020 L 525,1050" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+  <path d="M 525,1090 L 525,1110 L 225,1110 L 225,1130" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+  <path d="M 225,1170 L 225,1195 L 75,1195 L 75,1210" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+
+  <!-- Nodes -->
+  <!-- Start -->
+  <circle cx="75" cy="60" r="12" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <text x="75" y="64" font-family="'Times New Roman', Georgia, serif" font-size="9px" text-anchor="middle" font-weight="bold">Début</text>
+
+  <!-- 1. Consult -->
+  <rect x="160" y="110" width="130" height="40" rx="3" ry="3" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <text x="225" y="124" font-family="'Times New Roman', Georgia, serif" font-size="9px" text-anchor="middle">Consulter Odoo</text>
+  <text x="225" y="136" font-family="'Times New Roman', Georgia, serif" font-size="8px" text-anchor="middle" fill="#666">(packages, départs)</text>
+
+  <!-- 2. Propose -->
+  <rect x="160" y="180" width="130" height="40" rx="3" ry="3" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <text x="225" y="204" font-family="'Times New Roman', Georgia, serif" font-size="10px" text-anchor="middle">Proposer offre</text>
+
+  <!-- Diamond 1. Accept? -->
+  <polygon points="75,265 110,285 75,305 40,285" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <text x="75" y="288" font-family="'Times New Roman', Georgia, serif" font-size="9px" text-anchor="middle" font-weight="bold">Accepte ?</text>
+  <text x="120" y="280" font-family="'Times New Roman', Georgia, serif" font-size="8px">Non</text>
+  <text x="82" y="320" font-family="'Times New Roman', Georgia, serif" font-size="8px">Oui</text>
+
+  <!-- End Refus -->
+  <rect x="100" y="310" width="80" height="25" rx="3" ry="3" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <text x="140" y="325" font-family="'Times New Roman', Georgia, serif" font-size="9px" text-anchor="middle">Fin : Refus</text>
+
+  <!-- 3. Create Booking -->
+  <rect x="160" y="350" width="130" height="40" rx="3" ry="3" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <text x="225" y="369" font-family="'Times New Roman', Georgia, serif" font-size="9px" text-anchor="middle">Créer réservation</text>
+  <text x="225" y="381" font-family="'Times New Roman', Georgia, serif" font-size="8px" text-anchor="middle" fill="#666">travel.booking (brouillon)</text>
+
+  <!-- 4. Add Passenger -->
+  <rect x="160" y="410" width="130" height="40" rx="3" ry="3" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <text x="225" y="429" font-family="'Times New Roman', Georgia, serif" font-size="9px" text-anchor="middle">Saisir voyageurs</text>
+  <text x="225" y="441" font-family="'Times New Roman', Georgia, serif" font-size="8px" text-anchor="middle" fill="#666">travel.passenger</text>
+
+  <!-- 5. Submit -->
+  <rect x="160" y="470" width="130" height="40" rx="3" ry="3" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <text x="225" y="494" font-family="'Times New Roman', Georgia, serif" font-size="10px" text-anchor="middle">Soumettre dossier</text>
+
+  <!-- 6. Review -->
+  <rect x="310" y="550" width="130" height="40" rx="3" ry="3" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <text x="375" y="574" font-family="'Times New Roman', Georgia, serif" font-size="10px" text-anchor="middle">Vérifier dispo</text>
+
+  <!-- Diamond 2. Available? -->
+  <polygon points="525,630 560,650 525,670 490,650" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <text x="525" y="653" font-family="'Times New Roman', Georgia, serif" font-size="8px" text-anchor="middle" font-weight="bold">Places dispos ?</text>
+  <text x="440" y="645" font-family="'Times New Roman', Georgia, serif" font-size="8px">Non</text>
+  <text x="532" y="685" font-family="'Times New Roman', Georgia, serif" font-size="8px">Oui</text>
+
+  <!-- Alternative Offer -->
+  <rect x="160" y="680" width="130" height="40" rx="3" ry="3" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <text x="225" y="699" font-family="'Times New Roman', Georgia, serif" font-size="9px" text-anchor="middle">Proposer alternative</text>
+  <text x="225" y="711" font-family="'Times New Roman', Georgia, serif" font-size="8px" text-anchor="middle" fill="#666">(Autre départ)</text>
+
+  <!-- 8. Approve -->
+  <rect x="310" y="740" width="130" height="40" rx="3" ry="3" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <text x="375" y="764" font-family="'Times New Roman', Georgia, serif" font-size="10px" text-anchor="middle">Approuver dossier</text>
+
+  <!-- 9. Create Sale Order -->
+  <rect x="460" y="820" width="130" height="40" rx="3" ry="3" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <text x="525" y="839" font-family="'Times New Roman', Georgia, serif" font-size="9px" text-anchor="middle">Générer devis</text>
+  <text x="525" y="851" font-family="'Times New Roman', Georgia, serif" font-size="8px" text-anchor="middle" fill="#666">sale.order</text>
+
+  <!-- 10. Confirm & Pay -->
+  <rect x="10" y="900" width="130" height="40" rx="3" ry="3" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <text x="75" y="919" font-family="'Times New Roman', Georgia, serif" font-size="9px" text-anchor="middle">Confirmer &amp; payer</text>
+  <text x="75" y="931" font-family="'Times New Roman', Georgia, serif" font-size="8px" text-anchor="middle" fill="#666">(Client)</text>
+
+  <!-- 11. Facturer -->
+  <rect x="460" y="980" width="130" height="40" rx="3" ry="3" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <text x="525" y="999" font-family="'Times New Roman', Georgia, serif" font-size="9px" text-anchor="middle">Facturer &amp; encaisser</text>
+  <text x="525" y="1011" font-family="'Times New Roman', Georgia, serif" font-size="8px" text-anchor="middle" fill="#666">account.move (Standard)</text>
+
+  <!-- 12. Confirm Booking -->
+  <rect x="460" y="1050" width="130" height="40" rx="3" ry="3" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <text x="525" y="1074" font-family="'Times New Roman', Georgia, serif" font-size="10px" text-anchor="middle">Confirmer réservation</text>
+
+  <!-- 13. Print Bon -->
+  <rect x="160" y="1130" width="130" height="40" rx="3" ry="3" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <text x="225" y="1149" font-family="'Times New Roman', Georgia, serif" font-size="9px" text-anchor="middle">Imprimer bon PDF</text>
+  <text x="225" y="1161" font-family="'Times New Roman', Georgia, serif" font-size="8px" text-anchor="middle" fill="#666">Bon de réservation</text>
+
+  <!-- End Success -->
+  <circle cx="75" cy="1225" r="12" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <circle cx="75" cy="1225" r="8" stroke="#000000" stroke-width="1.0" fill="none" />
+  <text x="75" y="1250" font-family="'Times New Roman', Georgia, serif" font-size="9px" text-anchor="middle" font-weight="bold">Voyage réservé</text>
+</svg></div>
+
+<h4>Rôles des acteurs :</h4>
+<ul>
+<li>
+<p><strong>Le Client</strong> : Exprime son besoin, accepte le tarif proposé, puis valide la commande par son paiement.</p>
+</li>
+<li>
+<p><strong>L'Agent de Voyages</strong> : Gère la saisie des dossiers, ajoute la liste des passagers et transmet la demande au système.</p>
+</li>
+<li>
+<p><strong>Le Responsable Agence</strong> : Exécute le rôle de contrôle en approuvant le dossier après s'être assuré de la disponibilité des places.</p>
+</li>
+<li>
+<p><strong>Le SI Odoo</strong> : Calcule dynamiquement les places, crée le devis standard et génère le fichier PDF du bon de voyage.</p>
+</li>
+</ul>
+<h4>Alignement des fonctionnalités :</h4>
+<ul>
+<li>
+<p><strong>Éléments automatisés par le module</strong> : Création de la réservation, validation de la capacité, gestion du workflow et génération du rapport PDF.</p>
+</li>
+<li>
+<p><strong>Éléments gérés par Odoo standard</strong> : Fiche client (Contacts), validation du devis (Ventes), émission de la facture et enregistrement du paiement (Comptabilité).</p>
+</li>
+</ul>
+<hr />
+<h3>2.2 Processus de préparation des prestations touristiques</h3>
+<p>Ce processus décrit la structuration du catalogue de voyages en amont de la saison de vente.</p>
+<div class="diagram-wrapper"><svg width="600" height="880" viewBox="0 0 600 880" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#000000" />
+    </marker>
+  </defs>
+
+  <!-- Swimlane Column Separators -->
+  <line x1="150" y1="0" x2="150" y2="880" stroke="#cccccc" stroke-width="1.0" stroke-dasharray="3,3" />
+  <line x1="300" y1="0" x2="300" y2="880" stroke="#cccccc" stroke-width="1.0" stroke-dasharray="3,3" />
+  <line x1="450" y1="0" x2="450" y2="880" stroke="#cccccc" stroke-width="1.0" stroke-dasharray="3,3" />
+
+  <!-- Column Headers -->
+  <rect x="0" y="0" width="150" height="40" fill="#f8fafc" stroke="#000000" stroke-width="1.0" />
+  <text x="75" y="24" font-family="'Times New Roman', Georgia, serif" font-size="11px" text-anchor="middle" font-weight="bold">Responsable agence</text>
+
+  <rect x="150" y="0" width="150" height="40" fill="#f8fafc" stroke="#000000" stroke-width="1.0" />
+  <text x="225" y="24" font-family="'Times New Roman', Georgia, serif" font-size="11px" text-anchor="middle" font-weight="bold">Agent de voyages</text>
+
+  <rect x="300" y="0" width="150" height="40" fill="#f8fafc" stroke="#000000" stroke-width="1.0" />
+  <text x="375" y="24" font-family="'Times New Roman', Georgia, serif" font-size="11px" text-anchor="middle" font-weight="bold">Fournisseur</text>
+
+  <rect x="450" y="0" width="150" height="40" fill="#f8fafc" stroke="#000000" stroke-width="1.0" />
+  <text x="525" y="24" font-family="'Times New Roman', Georgia, serif" font-size="11px" text-anchor="middle" font-weight="bold">SI Odoo 17</text>
+
+  <!-- Connectors -->
+  <path d="M 75,72 L 75,90 L 225,90 L 225,105" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+  <path d="M 225,145 L 225,170 L 525,170 L 525,185" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+  <path d="M 525,225 L 525,250 L 225,250 L 225,265" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+  <path d="M 225,305 L 225,330 L 75,330 L 75,345" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+  <path d="M 75,385 L 75,410 L 375,410 L 375,425" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+  <path d="M 375,465 L 375,490" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+  
+  <!-- Non Path -->
+  <path d="M 340,510 L 75,510 L 75,470" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+  
+  <!-- Oui Path -->
+  <path d="M 375,530 L 375,550 L 225,550 L 225,575" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+  <path d="M 225,615 L 225,640 L 75,640 L 75,655" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+  <path d="M 75,695 L 75,720 L 525,720 L 525,735" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+  <path d="M 525,775 L 525,815" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+
+  <!-- Nodes -->
+  <!-- Start -->
+  <circle cx="75" cy="60" r="12" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <text x="75" y="64" font-family="'Times New Roman', Georgia, serif" font-size="9px" text-anchor="middle" font-weight="bold">Début</text>
+
+  <!-- 1. Enregistrer Destination -->
+  <rect x="160" y="105" width="130" height="40" rx="3" ry="3" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <text x="225" y="124" font-family="'Times New Roman', Georgia, serif" font-size="9px" text-anchor="middle">Créer destination</text>
+  <text x="225" y="136" font-family="'Times New Roman', Georgia, serif" font-size="8px" text-anchor="middle" fill="#666">travel.destination</text>
+
+  <!-- 2. Valider Unicité -->
+  <rect x="460" y="185" width="130" height="40" rx="3" ry="3" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <text x="525" y="204" font-family="'Times New Roman', Georgia, serif" font-size="9px" text-anchor="middle">Contrôle unicité</text>
+  <text x="525" y="216" font-family="'Times New Roman', Georgia, serif" font-size="8px" text-anchor="middle" fill="#666">(Automatique ORM)</text>
+
+  <!-- 3. Créer Package -->
+  <rect x="160" y="265" width="130" height="40" rx="3" ry="3" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <text x="225" y="284" font-family="'Times New Roman', Georgia, serif" font-size="9px" text-anchor="middle">Créer package</text>
+  <text x="225" y="296" font-family="'Times New Roman', Georgia, serif" font-size="8px" text-anchor="middle" fill="#666">travel.package</text>
+
+  <!-- 4. Associer fournisseurs -->
+  <rect x="10" y="345" width="130" height="40" rx="3" ry="3" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <text x="75" y="364" font-family="'Times New Roman', Georgia, serif" font-size="9px" text-anchor="middle">Associer prestataires</text>
+  <text x="75" y="376" font-family="'Times New Roman', Georgia, serif" font-size="8px" text-anchor="middle" fill="#666">res.partner (fournisseur)</text>
+
+  <!-- 5. Confirmer services -->
+  <rect x="310" y="425" width="130" height="40" rx="3" ry="3" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <text x="375" y="444" font-family="'Times New Roman', Georgia, serif" font-size="9px" text-anchor="middle">Confirmer dispo</text>
+  <text x="375" y="456" font-family="'Times New Roman', Georgia, serif" font-size="8px" text-anchor="middle" fill="#666">(Hôtel, Transport)</text>
+
+  <!-- Diamond 1. Confirmés ? -->
+  <polygon points="375,490 410,510 375,530 340,510" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <text x="375" y="513" font-family="'Times New Roman', Georgia, serif" font-size="8px" text-anchor="middle" font-weight="bold">Confirmés ?</text>
+  <text x="290" y="505" font-family="'Times New Roman', Georgia, serif" font-size="8px">Non (Modifier)</text>
+  <text x="382" y="545" font-family="'Times New Roman', Georgia, serif" font-size="8px">Oui</text>
+
+  <!-- Change prestataire -->
+  <rect x="10" y="430" width="130" height="40" rx="3" ry="3" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <text x="75" y="454" font-family="'Times New Roman', Georgia, serif" font-size="9px" text-anchor="middle">Modifier prestataire</text>
+
+  <!-- 7. Planifier départ -->
+  <rect x="160" y="575" width="130" height="40" rx="3" ry="3" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <text x="225" y="594" font-family="'Times New Roman', Georgia, serif" font-size="9px" text-anchor="middle">Créer départ réel</text>
+  <text x="225" y="606" font-family="'Times New Roman', Georgia, serif" font-size="8px" text-anchor="middle" fill="#666">travel.departure (brouillon)</text>
+
+  <!-- 8. Ouvrir départ -->
+  <rect x="10" y="655" width="130" height="40" rx="3" ry="3" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <text x="75" y="679" font-family="'Times New Roman', Georgia, serif" font-size="10px" text-anchor="middle">Ouvrir départ aux ventes</text>
+
+  <!-- 9. Suivre capacité -->
+  <rect x="460" y="735" width="130" height="40" rx="3" ry="3" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <text x="525" y="754" font-family="'Times New Roman', Georgia, serif" font-size="9px" text-anchor="middle">Suivre capacité</text>
+  <text x="525" y="766" font-family="'Times New Roman', Georgia, serif" font-size="8px" text-anchor="middle" fill="#666">(Disponibilités ORM)</text>
+
+  <!-- End Success -->
+  <circle cx="525" cy="830" r="12" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <circle cx="525" cy="830" r="8" stroke="#000000" stroke-width="1.0" fill="none" />
+  <text x="525" y="855" font-family="'Times New Roman', Georgia, serif" font-size="9px" text-anchor="middle" font-weight="bold">Départ ouvert</text>
+</svg></div>
+
+<h4>Rôles des acteurs :</h4>
+<ul>
+<li>
+<p><strong>Le Responsable Agence</strong> : Négocie les prestations hôtelières et de transport, valide les accords et ouvre les départs.</p>
+</li>
+<li>
+<p><strong>L'Agent de Voyages</strong> : Enregistre les fiches techniques des destinations et assemble les packages commerciaux.</p>
+</li>
+<li>
+<p><strong>Le Fournisseur</strong> : Valide la disponibilité globale des chambres ou des sièges de transport.</p>
+</li>
+<li>
+<p><strong>Le SI Odoo</strong> : Contraint la cohérence des dates, des tarifs et gère l'inventaire logique de capacité.</p>
+</li>
+</ul>
+<h4>Alignement des fonctionnalités :</h4>
+<ul>
+<li>
+<p><strong>Éléments automatisés par le module</strong> : Enregistrement de la destination unique, composition du package et planification du départ réel avec dates contraintes.</p>
+</li>
+<li>
+<p><strong>Éléments gérés par Odoo standard</strong> : Fiches d'identité des prestataires dans Contacts.</p>
+</li>
+</ul>
+<hr />
+<h2>3. Conception du système d’information</h2>
+<p>La conception du système d'information repose sur l'intégration entre les applications natives d'Odoo et le module développé spécifiquement.</p>
+<h3>Modules Odoo standards utilisés</h3>
+<p>Le système d'information réutilise quatre applications natives de l'ERP :</p>
+<ol>
+<li>
+<p><strong>Contacts (<code>contacts</code>)</strong> : Utilisé pour héberger les clients (acheteurs) et les prestataires (fournisseurs hôteliers ou transporteurs) sur la table commune <code>res.partner</code>.</p>
+</li>
+<li>
+<p><strong>Ventes (<code>sale_management</code>)</strong> : Utilisé pour matérialiser le devis commercial et la commande via <code>sale.order</code>.</p>
+</li>
+<li>
+<p><strong>Facturation/Comptabilité (<code>account</code>)</strong> : Prise en charge standard de l'émission des factures clients et du lettrage des paiements.</p>
+</li>
+<li>
+<p><strong>Messagerie (<code>mail</code>)</strong> : Fournit le chatter collaboratif et le journal des modifications sur la fiche réservation.</p>
+</li>
+</ol>
+<h3>Rôle du module spécifique</h3>
+<p>Le module personnalisé <code>travel_agency_management</code> gère les entités de l'activité voyage, assure la vérification de la capacité des départs à l'approbation et orchestre la passerelle vers la création de devis de vente.</p>
+<h3>Diagramme du modèle de données</h3>
+<p>Le modèle conceptuel relationnel présente les tables créées et leurs interactions avec les objets Odoo.</p>
+<div class="diagram-wrapper"><svg width="600" height="500" viewBox="0 0 600 500" xmlns="http://www.w3.org/2000/svg">
+  <!-- Connectors -->
+  <!-- res.country -> travel.destination -->
+  <line x1="150" y1="90" x2="220" y2="90" stroke="#000000" stroke-width="1.5" />
+  <!-- travel.destination -> travel.package -->
+  <line x1="370" y1="90" x2="420" y2="90" stroke="#000000" stroke-width="1.5" />
+  <!-- travel.package -> travel.departure -->
+  <line x1="495" y1="140" x2="495" y2="220" stroke="#000000" stroke-width="1.5" />
+  <!-- travel.departure -> travel.booking -->
+  <line x1="420" y1="270" x2="370" y2="270" stroke="#000000" stroke-width="1.5" />
+  <!-- travel.booking -> travel.passenger -->
+  <line x1="220" y1="270" x2="170" y2="270" stroke="#000000" stroke-width="1.5" />
+  <!-- res.partner (client) -> travel.booking -->
+  <line x1="295" y1="380" x2="295" y2="320" stroke="#000000" stroke-width="1.5" />
+  <!-- travel.booking -> sale.order -->
+  <line x1="340" y1="320" x2="450" y2="380" stroke="#000000" stroke-width="1.5" />
+  <!-- res.partner (prestataire) -> travel.package -->
+  <path d="M 295,430 L 520,430 L 520,140" fill="none" stroke="#000000" stroke-width="1.5" stroke-dasharray="4" />
+
+  <!-- res.country -->
+  <rect x="20" y="50" width="130" height="80" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <rect x="20" y="50" width="130" height="25" stroke="#f2f2f2" stroke-width="1.5" fill="#f2f2f2" />
+  <text x="85" y="67" font-family="'Times New Roman', Georgia, serif" font-size="11px" text-anchor="middle" font-weight="bold">res.country</text>
+  <text x="30" y="90" font-family="'Courier New', monospace" font-size="10px">code (PK)</text>
+  <text x="30" y="105" font-family="'Courier New', monospace" font-size="10px">name</text>
+  
+  <!-- travel.destination -->
+  <rect x="220" y="40" width="150" height="100" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <rect x="220" y="40" width="150" height="25" stroke="#f2f2f2" stroke-width="1.5" fill="#f2f2f2" />
+  <text x="295" y="57" font-family="'Times New Roman', Georgia, serif" font-size="11px" text-anchor="middle" font-weight="bold">travel.destination</text>
+  <text x="230" y="80" font-family="'Courier New', monospace" font-size="10px">id (PK)</text>
+  <text x="230" y="95" font-family="'Courier New', monospace" font-size="10px">name</text>
+  <text x="230" y="110" font-family="'Courier New', monospace" font-size="10px">city</text>
+  <text x="230" y="125" font-family="'Courier New', monospace" font-size="10px">country_id (FK)</text>
+
+  <!-- travel.package -->
+  <rect x="420" y="40" width="150" height="100" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <rect x="420" y="40" width="150" height="25" stroke="#f2f2f2" stroke-width="1.5" fill="#f2f2f2" />
+  <text x="495" y="57" font-family="'Times New Roman', Georgia, serif" font-size="11px" text-anchor="middle" font-weight="bold">travel.package</text>
+  <text x="430" y="80" font-family="'Courier New', monospace" font-size="10px">id (PK)</text>
+  <text x="430" y="95" font-family="'Courier New', monospace" font-size="10px">name</text>
+  <text x="430" y="110" font-family="'Courier New', monospace" font-size="10px">destination_id (FK)</text>
+  <text x="430" y="125" font-family="'Courier New', monospace" font-size="10px">base_price</text>
+
+  <!-- travel.departure -->
+  <rect x="420" y="220" width="150" height="100" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <rect x="420" y="220" width="150" height="25" stroke="#f2f2f2" stroke-width="1.5" fill="#f2f2f2" />
+  <text x="495" y="237" font-family="'Times New Roman', Georgia, serif" font-size="11px" text-anchor="middle" font-weight="bold">travel.departure</text>
+  <text x="430" y="260" font-family="'Courier New', monospace" font-size="10px">id (PK)</text>
+  <text x="430" y="275" font-family="'Courier New', monospace" font-size="10px">package_id (FK)</text>
+  <text x="430" y="290" font-family="'Courier New', monospace" font-size="10px">departure_date</text>
+  <text x="430" y="305" font-family="'Courier New', monospace" font-size="10px">capacity</text>
+
+  <!-- travel.booking -->
+  <rect x="220" y="220" width="150" height="100" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <rect x="220" y="220" width="150" height="25" stroke="#f2f2f2" stroke-width="1.5" fill="#f2f2f2" />
+  <text x="295" y="237" font-family="'Times New Roman', Georgia, serif" font-size="11px" text-anchor="middle" font-weight="bold">travel.booking</text>
+  <text x="230" y="260" font-family="'Courier New', monospace" font-size="10px">id (PK)</text>
+  <text x="230" y="275" font-family="'Courier New', monospace" font-size="10px">customer_id (FK)</text>
+  <text x="230" y="290" font-family="'Courier New', monospace" font-size="10px">departure_id (FK)</text>
+  <text x="230" y="305" font-family="'Courier New', monospace" font-size="10px">sale_order_id (FK)</text>
+
+  <!-- travel.passenger -->
+  <rect x="20" y="220" width="150" height="100" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <rect x="20" y="220" width="150" height="25" stroke="#f2f2f2" stroke-width="1.5" fill="#f2f2f2" />
+  <text x="95" y="237" font-family="'Times New Roman', Georgia, serif" font-size="11px" text-anchor="middle" font-weight="bold">travel.passenger</text>
+  <text x="30" y="260" font-family="'Courier New', monospace" font-size="10px">id (PK)</text>
+  <text x="30" y="275" font-family="'Courier New', monospace" font-size="10px">booking_id (FK)</text>
+  <text x="30" y="290" font-family="'Courier New', monospace" font-size="10px">name</text>
+  <text x="30" y="305" font-family="'Courier New', monospace" font-size="10px">passport_number</text>
+
+  <!-- res.partner -->
+  <rect x="220" y="380" width="150" height="80" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <rect x="220" y="380" width="150" height="25" stroke="#f2f2f2" stroke-width="1.5" fill="#f2f2f2" />
+  <text x="295" y="397" font-family="'Times New Roman', Georgia, serif" font-size="11px" text-anchor="middle" font-weight="bold">res.partner</text>
+  <text x="230" y="420" font-family="'Courier New', monospace" font-size="10px">id (PK)</text>
+  <text x="230" y="435" font-family="'Courier New', monospace" font-size="10px">name</text>
+
+  <!-- sale.order -->
+  <rect x="440" y="380" width="130" height="80" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <rect x="440" y="380" width="130" height="25" stroke="#f2f2f2" stroke-width="1.5" fill="#f2f2f2" />
+  <text x="505" y="397" font-family="'Times New Roman', Georgia, serif" font-size="11px" text-anchor="middle" font-weight="bold">sale.order</text>
+  <text x="450" y="420" font-family="'Courier New', monospace" font-size="10px">id (PK)</text>
+  <text x="450" y="435" font-family="'Courier New', monospace" font-size="10px">name</text>
+</svg></div>
+
+<h3>Description des principales entités</h3>
+<ul>
+<li>
+<p><strong>Destination (<code>travel.destination</code>)</strong> : Ville et pays du voyage. Comporte une contrainte d'unicité logique pour empêcher la création de doublons par ville et pays.</p>
+</li>
+<li>
+<p><strong>Package (<code>travel.package</code>)</strong> : Formule vendable combinant une destination, une durée en jours et un tarif de base. Il est lié aux partenaires prestataires.</p>
+</li>
+<li>
+<p><strong>Départ (<code>travel.departure</code>)</strong> : Session de voyage planifiée (ex. : départ du 15 juillet). Il définit la date de départ, la date de retour calculée, la capacité en nombre de sièges et calcule les places restantes.</p>
+</li>
+<li>
+<p><strong>Réservation (<code>travel.booking</code>)</strong> : Dossier de voyage client. Elle suit les étapes du workflow, calcule le montant total (prix unitaire x voyageurs - remise) et pointe vers le devis généré.</p>
+</li>
+<li>
+<p><strong>Voyageur (<code>travel.passenger</code>)</strong> : Fiche individuelle de chaque passager liée à la réservation. Odoo calcule l'âge de chaque passager à partir de sa date de naissance.</p>
+</li>
+</ul>
+<h3>Sécurité et droits d'accès</h3>
+<p>La sécurité du système d'information est configurée à travers trois fichiers :</p>
+<ul>
+<li><strong>Groupes d'accès (<code>security/security.xml</code>)</strong> :</li>
+<li><em>Utilisateur Agence de Voyages</em> : Conçu pour les agents commerciaux. Permet la consultation des destinations/packages et la gestion de leurs propres réservations.</li>
+<li>
+<p><em>Responsable Agence de Voyages</em> : Permet le paramétrage des départs, la modification des tarifs et détient le droit exclusif d'approuver une réservation.</p>
+</li>
+<li>
+<p><strong>Règles d'enregistrement (<code>security/record_rules.xml</code>)</strong> :</p>
+</li>
+<li>Un agent ne voit que les réservations qu'il a créées ou dont il est responsable.</li>
+<li>
+<p>Le responsable d'agence dispose d'un accès global sans filtre de confidentialité.</p>
+</li>
+<li>
+<p><strong>ACLs (<code>security/ir.model.access.csv</code>)</strong> :</p>
+</li>
+<li>Définit les droits CRUD par modèle PostgreSQL pour chaque groupe d'utilisateurs.</li>
+</ul>
+<hr />
+<h2>4. Réalisation et Manuel Utilisateur</h2>
+<p>Le module a été développé selon l’architecture habituelle d’un module Odoo : modèles Python, vues XML, règles de sécurité et rapports QWeb.</p>
+<h3>4.1 Réalisation technique sous Odoo 17</h3>
+<h4>4.1.1 Structure du module</h4>
+<p>Le code source respecte l'arborescence standard d'Odoo :
+* <code>models/</code> : travel_booking.py, travel_departure.py, travel_destination.py, travel_package.py, travel_passenger.py.
+* <code>views/</code> : Vues et formulaires XML associés à chaque modèle.
+* <code>security/</code> : Groupes de sécurité et matrice d'accès CSV.
+* <code>reports/</code> : Déclaration et gabarit QWeb du Bon de réservation PDF.
+* <code>data/</code> : Séquence automatique et données de test.</p>
+<h4>4.1.2 Modèles Python</h4>
+<p>Les modèles s'appuient sur l'ORM d'Odoo. Des décorateurs Python valident les données :
+* <code>@api.depends</code> : Recalcule dynamiquement les places disponibles du départ à chaque modification du statut des réservations liées.
+* <code>@api.constrains</code> : Interdit l'enregistrement si la capacité est inférieure à zéro, si les dates de départ/retour sont incohérentes, ou si une destination dupliquée est saisie.</p>
+<h4>4.1.3 Vues XML et menus</h4>
+<p>L'interface utilisateur intègre le menu principal et des sous-menus pour naviguer entre les réservations, les départs et le reporting. Les formulaires intègrent des statusbars interactifs et des feuilles de style pour masquer les boutons d'action selon l'état du dossier.</p>
+<h4>4.1.4 Workflow</h4>
+<p>Le cycle de vie d'un dossier réservation comporte sept états :
+<code>Brouillon (draft) -&gt; Soumise (submitted) -&gt; Approuvée (approved) -&gt; Devis créé (sale_created) -&gt; Confirmée (confirmed) -&gt; Terminée (done) / Annulée (cancelled)</code>
+L'ORM bloque le passage à l'état approuvé si le nombre de passagers est supérieur aux sièges restants.</p>
+<h4>4.1.5 Intégration au devis Odoo</h4>
+<p>À l'état approuvé, l'agent clique sur le bouton de facturation. Odoo instancie automatiquement un devis dans l'application Ventes standard (<code>sale.order</code>) en y insérant une ligne d'article de service « Voyage organisé » valorisée au prix du package multiplié par le nombre de voyageurs.</p>
+<h4>4.1.6 Rapport QWeb</h4>
+<p>Le document client « Bon de réservation » est un modèle de rapport QWeb HTML associé à l'action d'impression Odoo. Il compile les données clients, les caractéristiques du voyage, la liste nominative des voyageurs avec leur passeport et les conditions générales de vente.</p>
+<h4>4.1.7 Reporting graph/pivot</h4>
+<p>Deux vues de synthèse ont été ajoutées pour suivre les réservations : une vue graphique (histogramme ou camembert) et une vue pivot (tableau croisé dynamique) pour analyser le chiffre d'affaires et les volumes de passagers.</p>
+<h4>4.1.8 Sécurité</h4>
+<p>Les règles de record-level security (sécurité à l'enregistrement) filtrent les enregistrements PostgreSQL renvoyés à l'interface graphique selon le profil de l'utilisateur connecté.</p>
+<hr />
+<h3>4.2 Manuel Utilisateur avec Captures d'Écran</h3>
+<p>Cette section présente les étapes de manipulation du module illustrées par les écrans de l'application.</p>
+<h4>4.2.1 Accès au menu principal</h4>
+<p>Une fois connecté en tant qu'agent commercial, le menu principal <strong>Agence de Voyages</strong> s'affiche dans l'en-tête.</p>
+<figure class="screenshot-figure"><img src="screenshots/01_menu_principal.png" alt="Figure 1 - Vue du menu principal et des sous-menus" /><figcaption>Figure 1 - Vue du menu principal et des sous-menus</figcaption></figure>
+<h4>4.2.2 Liste des destinations</h4>
+<p>Le sous-menu <code>Voyages &gt; Destinations</code> affiche les villes disponibles pour la création des séjours.</p>
+<figure class="screenshot-figure"><img src="screenshots/02_liste_destinations.png" alt="Figure 2 - Vue en liste des destinations configurées" /><figcaption>Figure 2 - Vue en liste des destinations configurées</figcaption></figure>
+<h4>4.2.3 Formulaire de package</h4>
+<p>Le formulaire package permet de définir les prix, la destination et la durée en jours du voyage.</p>
+<figure class="screenshot-figure"><img src="screenshots/05_formulaire_package.png" alt="Figure 5 - Formulaire d'édition d'un package commercial" /><figcaption>Figure 5 - Formulaire d'édition d'un package commercial</figcaption></figure>
+<h4>4.2.4 Liste des départs planifiés</h4>
+<p>La liste des départs permet de suivre les dates planifiées et de vérifier le nombre de places restantes avant de soumettre une réservation.</p>
+<figure class="screenshot-figure"><img src="screenshots/06_liste_departs.png" alt="Figure 6 - Vue en liste des départs de voyages planifiés" /><figcaption>Figure 6 - Vue en liste des départs de voyages planifiés</figcaption></figure>
+<h4>4.2.5 Enregistrement d'une réservation (Brouillon)</h4>
+<p>L'agent commercial crée une réservation en renseignant le client, le package et la liste nominative des voyageurs.</p>
+<figure class="screenshot-figure"><img src="screenshots/09_reservation_brouillon.png" alt="Figure 9 - Fiche de réservation à l'état Brouillon" /><figcaption>Figure 9 - Fiche de réservation à l'état Brouillon</figcaption></figure>
+<h4>4.2.6 Soumission et Approbation du dossier</h4>
+<p>Après vérification par l'agent, le dossier est soumis. Le responsable d'agence valide l'approbation, ce qui bloque logiquement les places sur le départ.</p>
+<figure class="screenshot-figure"><img src="screenshots/10_reservation_soumise.png" alt="Figure 10 - Fiche de réservation à l'état Soumise" /><figcaption>Figure 10 - Fiche de réservation à l'état Soumise</figcaption></figure>
+<figure class="screenshot-figure"><img src="screenshots/11_reservation_approuvee.png" alt="Figure 11 - Fiche de réservation approuvée par le responsable d'agence" /><figcaption>Figure 11 - Fiche de réservation approuvée par le responsable d'agence</figcaption></figure>
+<h4>4.2.7 Génération du devis de vente</h4>
+<p>À l'approbation, l'agent clique sur la génération de devis. Odoo crée la commande commerciale standard.</p>
+<figure class="screenshot-figure"><img src="screenshots/12_devis_odoo.png" alt="Figure 12 - Devis commercial standard Odoo généré à partir de la réservation" /><figcaption>Figure 12 - Devis commercial standard Odoo généré à partir de la réservation</figcaption></figure>
+<h4>4.2.8 Confirmation de réservation</h4>
+<p>Après paiement du client et confirmation de la vente standard Odoo, la réservation passe à l'état final Confirmée.</p>
+<figure class="screenshot-figure"><img src="screenshots/13_reservation_confirmee.png" alt="Figure 13 - Fiche de réservation confirmée après confirmation de la vente" /><figcaption>Figure 13 - Fiche de réservation confirmée après confirmation de la vente</figcaption></figure>
+<h4>4.2.9 Impression du Bon PDF</h4>
+<p>L'impression génère le document officiel de transport destiné aux voyageurs.</p>
+<figure class="screenshot-figure"><img src="screenshots/14_bon_reservation_pdf.png" alt="Figure 14 - Rendu du document PDF du bon de réservation client" /><figcaption>Figure 14 - Rendu du document PDF du bon de réservation client</figcaption></figure>
+<h4>4.2.10 Reporting graphique</h4>
+<p>La vue graphique permet de suivre le nombre de réservations passées par destination.</p>
+<figure class="screenshot-figure"><img src="screenshots/15_vue_graph_reservations.png" alt="Figure 15 - Vue graphique d'analyse des réservations" /><figcaption>Figure 15 - Vue graphique d'analyse des réservations</figcaption></figure>
+<h4>4.2.11 Reporting pivot</h4>
+<p>La vue pivot affiche un tableau croisé dynamique pour analyser les montants de vente par package et par mois.</p>
+<figure class="screenshot-figure"><img src="screenshots/16_vue_pivot_reservations.png" alt="Figure 16 - Tableau croisé pivot d'analyse des montants" /><figcaption>Figure 16 - Tableau croisé pivot d'analyse des montants</figcaption></figure>
+<h4>4.2.12 Gestion de la sécurité</h4>
+<p>L'affectation des groupes utilisateurs (Agent ou Responsable) est configurée dans l'administration d'Odoo.</p>
+<figure class="screenshot-figure"><img src="screenshots/17_groupes_securite.png" alt="Figure 17 - Configuration des droits d'accès utilisateurs sous Odoo 17" /><figcaption>Figure 17 - Configuration des droits d'accès utilisateurs sous Odoo 17</figcaption></figure>
+<hr />
+<h3>4.3 Cahier de Recette / Tests Fonctionnels</h3>
+<p>Ce tableau synthétise les tests de validation fonctionnelle réalisés sur le module.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">ID</th>
+<th style="text-align: left;">Scénario de test</th>
+<th style="text-align: left;">Étapes de test</th>
+<th style="text-align: left;">Résultat attendu</th>
+<th style="text-align: left;">Résultat obtenu</th>
+<th style="text-align: center;">Statut</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>T01</strong></td>
+<td style="text-align: left;">Installation du module</td>
+<td style="text-align: left;">Installer <code>travel_agency_management</code> sur Odoo 17.</td>
+<td style="text-align: left;">Installation réussie, structure de base créée.</td>
+<td style="text-align: left;">Conforme</td>
+<td style="text-align: center;"><strong><span class="badge-success">Succès</span></strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>T02</strong></td>
+<td style="text-align: left;">Création d’une destination</td>
+<td style="text-align: left;">Renseigner ville et pays dans le formulaire destination.</td>
+<td style="text-align: left;">Enregistrement correct en base de données.</td>
+<td style="text-align: left;">Conforme</td>
+<td style="text-align: center;"><strong><span class="badge-success">Succès</span></strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>T03</strong></td>
+<td style="text-align: left;">Test d'unicité destination</td>
+<td style="text-align: left;">Créer deux destinations identiques (même ville et pays).</td>
+<td style="text-align: left;">Odoo refuse la validation et lève une exception.</td>
+<td style="text-align: left;">Blocage OK</td>
+<td style="text-align: center;"><strong><span class="badge-success">Succès</span></strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>T04</strong></td>
+<td style="text-align: left;">Création de package</td>
+<td style="text-align: left;">Saisir durée et prix puis enregistrer.</td>
+<td style="text-align: left;">Package créé et initialisé à l'état Brouillon.</td>
+<td style="text-align: left;">Conforme</td>
+<td style="text-align: center;"><strong><span class="badge-success">Succès</span></strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>T05</strong></td>
+<td style="text-align: left;">Valeurs package invalides</td>
+<td style="text-align: left;">Saisir une durée &lt;= 0 ou un tarif négatif.</td>
+<td style="text-align: left;">L'ORM rejette l'écriture avec une boîte de dialogue.</td>
+<td style="text-align: left;">Rejet OK</td>
+<td style="text-align: center;"><strong><span class="badge-success">Succès</span></strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>T06</strong></td>
+<td style="text-align: left;">Publication de package</td>
+<td style="text-align: left;">Cliquer sur <code>Publier</code> sur la fiche package.</td>
+<td style="text-align: left;">Le package passe à l'état <code>Publié</code>.</td>
+<td style="text-align: left;">Conforme</td>
+<td style="text-align: center;"><strong><span class="badge-success">Succès</span></strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>T07</strong></td>
+<td style="text-align: left;">Création de départ</td>
+<td style="text-align: left;">Saisir les dates de départ, la capacité et passer à <code>Ouvert</code>.</td>
+<td style="text-align: left;">Le départ est ouvert et suit les réservations.</td>
+<td style="text-align: left;">Conforme</td>
+<td style="text-align: center;"><strong><span class="badge-success">Succès</span></strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>T08</strong></td>
+<td style="text-align: left;">Saisie de réservation</td>
+<td style="text-align: left;">Choisir le package, le départ et lister des passagers.</td>
+<td style="text-align: left;">Odoo charge le prix et calcule le total.</td>
+<td style="text-align: left;">Conforme</td>
+<td style="text-align: center;"><strong><span class="badge-success">Succès</span></strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>T09</strong></td>
+<td style="text-align: left;">Âge des voyageurs</td>
+<td style="text-align: left;">Saisir la date de naissance d'un passager.</td>
+<td style="text-align: left;">Calcul dynamique automatique de l'âge.</td>
+<td style="text-align: left;">Conforme</td>
+<td style="text-align: center;"><strong><span class="badge-success">Succès</span></strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>T10</strong></td>
+<td style="text-align: left;">Soumission réservation</td>
+<td style="text-align: left;">Cliquer sur <code>Soumettre</code>.</td>
+<td style="text-align: left;">Le dossier passe à l'état <code>Soumise</code>.</td>
+<td style="text-align: left;">Conforme</td>
+<td style="text-align: center;"><strong><span class="badge-success">Succès</span></strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>T11</strong></td>
+<td style="text-align: left;">Approbation</td>
+<td style="text-align: left;">Cliquer sur <code>Approuver</code> (Profil Responsable).</td>
+<td style="text-align: left;">Le dossier passe à <code>Approuvée</code>.</td>
+<td style="text-align: left;">Conforme</td>
+<td style="text-align: center;"><strong><span class="badge-success">Succès</span></strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>T12</strong></td>
+<td style="text-align: left;">Test de surbooking</td>
+<td style="text-align: left;">Créer une réservation excédant la capacité restante et approuver.</td>
+<td style="text-align: left;">Odoo bloque l'action et signale l'erreur de places.</td>
+<td style="text-align: left;">Blocage OK</td>
+<td style="text-align: center;"><strong><span class="badge-success">Succès</span></strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>T13</strong></td>
+<td style="text-align: left;">Génération du devis</td>
+<td style="text-align: left;">Cliquer sur <code>Créer le devis</code> depuis la fiche approuvée.</td>
+<td style="text-align: left;">Un devis <code>sale.order</code> lié est généré dans Odoo Ventes.</td>
+<td style="text-align: left;">Devis lié</td>
+<td style="text-align: center;"><strong><span class="badge-success">Succès</span></strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>T14</strong></td>
+<td style="text-align: left;">Confirmation finale</td>
+<td style="text-align: left;">Confirmer le devis puis cliquer sur <code>Confirmer la réservation</code>.</td>
+<td style="text-align: left;">La réservation passe à l'état <code>Confirmée</code>.</td>
+<td style="text-align: left;">Conforme</td>
+<td style="text-align: center;"><strong><span class="badge-success">Succès</span></strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>T15</strong></td>
+<td style="text-align: left;">Édition du PDF</td>
+<td style="text-align: left;">Cliquer sur <code>Imprimer le bon</code> sur une réservation validée.</td>
+<td style="text-align: left;">Téléchargement du bon de réservation PDF conforme.</td>
+<td style="text-align: left;">Conforme</td>
+<td style="text-align: center;"><strong><span class="badge-success">Succès</span></strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>5. Conclusion</h2>
+<p>La mise en place du système d'information de l'agence de voyages à travers le module développé sous Odoo 17 démontre l'apport d'un ERP pour unifier des processus métiers spécifiques.</p>
+<h3>Bilan opérationnel</h3>
+<p>L'application répond aux exigences opérationnelles clés :
+* Le suivi des disponibilités et le blocage automatique du surbooking fiabilisent la gestion de capacité des départs.
+* L'intégration avec l'application de Ventes standard d'Odoo évite la ressaisie manuelle des voyageurs lors des phases comptables et de facturation.
+* La gestion de sécurité par groupes garantit le contrôle des opérations sensibles comme la validation des tarifs et l'approbation finale des dossiers.</p>
+<h3>Limitations et perspectives</h3>
+<p>Quelques axes d'amélioration demeurent ouverts pour les versions ultérieures du système :
+* <strong>Automatisation complète du cycle d'achat</strong> : Les prestataires de transport ou d'hébergement sont enregistrés dans les contacts, mais le système ne génère pas de demande de prix ou de bon d'achat (<code>purchase.order</code>) standard automatique. L'intégration avec le module d'Achats standard constitue la principale perspective d'évolution.
+* <strong>Synchronisation comptable</strong> : La confirmation finale de la réservation nécessite une action manuelle après confirmation de la vente. Un déclencheur basé sur le lettrage complet de la facture de vente correspondante permettrait d'automatiser cette transition d'état.</p>
+    </div>
+
+</body>
+</html>

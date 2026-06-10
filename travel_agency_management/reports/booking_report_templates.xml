@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_travel_booking_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <style>
+                            .travel-title { color: #1f4e79; margin-bottom: 4px; }
+                            .travel-subtitle { color: #555; margin-bottom: 18px; }
+                            .travel-section-title { color: #1f4e79; border-bottom: 1px solid #d9e2ec; margin-top: 18px; padding-bottom: 4px; }
+                            .travel-table th { background: #eef4f9; color: #1f4e79; }
+                            .travel-footer { margin-top: 24px; font-size: 11px; color: #666; text-align: center; }
+                        </style>
+
+                        <h1 class="travel-title">Bon de réservation</h1>
+                        <p class="travel-subtitle">
+                            <strong>Atlas Horizon Travel</strong><br/>
+                            Document de confirmation et de suivi de réservation
+                        </p>
+
+                        <div class="row">
+                            <div class="col-6">
+                                <h3 class="travel-section-title">Réservation</h3>
+                                <p>
+                                    <strong>Référence :</strong> <span t-field="o.name"/><br/>
+                                    <strong>Date :</strong> <span t-field="o.booking_date"/><br/>
+                                    <strong>Statut :</strong> <span t-esc="o._get_state_label()"/><br/>
+                                    <strong>Responsable :</strong> <span t-field="o.responsible_user_id"/>
+                                </p>
+                            </div>
+                            <div class="col-6">
+                                <h3 class="travel-section-title">Client</h3>
+                                <p>
+                                    <strong>Nom :</strong> <span t-field="o.customer_id"/><br/>
+                                    <strong>Téléphone :</strong> <span t-esc="o.customer_id.phone or o.customer_id.mobile or ''"/><br/>
+                                    <strong>Email :</strong> <span t-esc="o.customer_id.email or ''"/>
+                                </p>
+                            </div>
+                        </div>
+
+                        <h3 class="travel-section-title">Voyage</h3>
+                        <table class="table table-sm travel-table">
+                            <tbody>
+                                <tr>
+                                    <th>Package</th>
+                                    <td><span t-field="o.package_id"/></td>
+                                    <th>Destination</th>
+                                    <td><span t-field="o.destination_id"/></td>
+                                </tr>
+                                <tr>
+                                    <th>Date de départ</th>
+                                    <td><span t-field="o.departure_id.departure_date"/></td>
+                                    <th>Date de retour</th>
+                                    <td><span t-field="o.departure_id.return_date"/></td>
+                                </tr>
+                                <tr>
+                                    <th>Nombre de voyageurs</th>
+                                    <td><span t-field="o.passenger_count"/></td>
+                                    <th>Devis / commande</th>
+                                    <td><span t-esc="o.sale_order_id.name if o.sale_order_id else ''"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h3 class="travel-section-title">Liste des voyageurs</h3>
+                        <table class="table table-sm travel-table">
+                            <thead>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Date de naissance</th>
+                                    <th>Nationalité</th>
+                                    <th>Numéro de passeport</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="o.passenger_ids" t-as="passenger">
+                                    <td><span t-field="passenger.name"/></td>
+                                    <td><span t-field="passenger.date_of_birth"/></td>
+                                    <td><span t-field="passenger.nationality_id"/></td>
+                                    <td><span t-esc="passenger.passport_number or ''"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h3 class="travel-section-title">Montants</h3>
+                        <table class="table table-sm travel-table">
+                            <tbody>
+                                <tr>
+                                    <th>Prix unitaire</th>
+                                    <td><span t-field="o.unit_price" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/></td>
+                                </tr>
+                                <tr>
+                                    <th>Remise</th>
+                                    <td><span t-field="o.discount_amount" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/></td>
+                                </tr>
+                                <tr>
+                                    <th>Total</th>
+                                    <td><strong><span t-field="o.total_amount" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/></strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h3 class="travel-section-title">Notes et conditions</h3>
+                        <p t-if="o.note"><span t-field="o.note"/></p>
+                        <p t-else="">Les prestations sont confirmées selon les conditions générales d'Atlas Horizon Travel et les disponibilités des prestataires.</p>
+
+                        <p class="travel-footer">Document généré automatiquement par le SI Odoo 17 de l’agence.</p>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

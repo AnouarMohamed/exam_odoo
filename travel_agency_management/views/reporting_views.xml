@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_travel_booking_graph" model="ir.ui.view">
+        <field name="name">travel.booking.graph</field>
+        <field name="model">travel.booking</field>
+        <field name="arch" type="xml">
+            <graph string="Analyse des réservations" type="bar">
+                <field name="destination_id" type="row"/>
+                <field name="state" type="col"/>
+                <field name="total_amount" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_travel_booking_pivot" model="ir.ui.view">
+        <field name="name">travel.booking.pivot</field>
+        <field name="model">travel.booking</field>
+        <field name="arch" type="xml">
+            <pivot string="Analyse des réservations">
+                <field name="destination_id" type="row"/>
+                <field name="package_id" type="row"/>
+                <field name="state" type="col"/>
+                <field name="passenger_count" type="measure"/>
+                <field name="total_amount" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_travel_booking_analysis" model="ir.actions.act_window">
+        <field name="name">Analyse des réservations</field>
+        <field name="res_model">travel.booking</field>
+        <field name="view_mode">graph,pivot,tree</field>
+        <field name="search_view_id" ref="view_travel_booking_search"/>
+        <field name="context">{'search_default_group_destination': 1}</field>
+    </record>
+</odoo>

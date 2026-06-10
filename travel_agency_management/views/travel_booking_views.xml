@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_travel_booking_tree" model="ir.ui.view">
+        <field name="name">travel.booking.tree</field>
+        <field name="model">travel.booking</field>
+        <field name="arch" type="xml">
+            <tree string="Réservations" decoration-success="state in ('confirmed', 'done')" decoration-warning="state in ('submitted', 'approved')" decoration-muted="state == 'cancelled'">
+                <field name="name"/>
+                <field name="booking_date"/>
+                <field name="customer_id"/>
+                <field name="package_id"/>
+                <field name="departure_id"/>
+                <field name="destination_id"/>
+                <field name="passenger_count"/>
+                <field name="total_amount" widget="monetary" sum="Total"/>
+                <field name="currency_id" optional="hide"/>
+                <field name="responsible_user_id"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_travel_booking_kanban" model="ir.ui.view">
+        <field name="name">travel.booking.kanban</field>
+        <field name="model">travel.booking</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state" class="o_kanban_small_column">
+                <field name="name"/>
+                <field name="customer_id"/>
+                <field name="package_id"/>
+                <field name="departure_id"/>
+                <field name="passenger_count"/>
+                <field name="total_amount"/>
+                <field name="currency_id"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click o_kanban_record">
+                            <div class="oe_kanban_details">
+                                <strong><field name="name"/></strong>
+                                <div><field name="customer_id"/></div>
+                                <div><field name="package_id"/></div>
+                                <div><field name="departure_id"/></div>
+                                <div><field name="passenger_count"/> voyageur(s)</div>
+                                <div><field name="total_amount" widget="monetary"/></div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_travel_booking_form" model="ir.ui.view">
+        <field name="name">travel.booking.form</field>
+        <field name="model">travel.booking</field>
+        <field name="arch" type="xml">
+            <form string="Réservation de voyage">
+                <header>
+                    <button name="action_submit" type="object" string="Soumettre" class="oe_highlight" invisible="state != 'draft'"/>
+                    <button name="action_approve" type="object" string="Approuver" class="oe_highlight" groups="travel_agency_management.group_travel_manager" invisible="state != 'submitted'"/>
+                    <button name="action_create_sale_order" type="object" string="Créer le devis" class="oe_highlight" invisible="state != 'approved'"/>
+                    <button name="action_confirm_booking" type="object" string="Confirmer la réservation" class="oe_highlight" invisible="state != 'sale_created'"/>
+                    <button name="action_done" type="object" string="Marquer comme terminé" invisible="state != 'confirmed'"/>
+                    <button name="action_cancel" type="object" string="Annuler" invisible="state not in ('draft', 'submitted', 'approved', 'sale_created', 'confirmed')"/>
+                    <button name="action_reset_to_draft" type="object" string="Remettre en brouillon" invisible="state not in ('submitted', 'cancelled')"/>
+                    <button name="action_print_booking_report" type="object" string="Imprimer le bon" invisible="state in ('draft', 'cancelled')"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,submitted,approved,sale_created,confirmed,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="object" name="action_view_sale_order" icon="fa-shopping-cart" invisible="not sale_order_id">
+                            <div class="o_stat_info">
+                                <span class="o_stat_text">Devis</span>
+                                <span class="o_stat_value"><field name="sale_order_id"/></span>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group string="Client et responsabilité">
+                            <field name="customer_id"/>
+                            <field name="booking_date"/>
+                            <field name="responsible_user_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group string="Voyage">
+                            <field name="package_id"/>
+                            <field name="departure_id" domain="[('package_id', '=', package_id), ('state', '=', 'open')]"/>
+                            <field name="destination_id"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <group string="Capacité du départ">
+                        <field name="departure_id" invisible="1"/>
+                        <field name="passenger_count" readonly="1"/>
+                        <field name="departure_available_seats" readonly="1"/>
+                    </group>
+                    <notebook>
+                        <page string="Informations générales">
+                            <group>
+                                <field name="unit_price" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                <field name="discount_amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                <field name="total_amount" widget="monetary" options="{'currency_field': 'currency_id'}" readonly="1"/>
+                            </group>
+                        </page>
+                        <page string="Voyageurs">
+                            <field name="passenger_ids" context="{'default_booking_id': active_id}">
+                                <tree editable="bottom" string="Voyageurs">
+                                    <field name="name"/>
+                                    <field name="date_of_birth"/>
+                                    <field name="age" readonly="1"/>
+                                    <field name="nationality_id"/>
+                                    <field name="passport_number"/>
+                                    <field name="phone"/>
+                                    <field name="email"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Vente et facturation">
+                            <group>
+                                <field name="sale_order_id" readonly="1"/>
+                                <field name="invoice_count" readonly="1"/>
+                                <button name="action_view_sale_order" type="object" string="Voir le devis" invisible="not sale_order_id"/>
+                            </group>
+                            <p class="text-muted">La facturation est réalisée par les modules standards Ventes et Facturation/Comptabilité d'Odoo après confirmation du devis.</p>
+                        </page>
+                        <page string="Notes">
+                            <field name="note" placeholder="Conditions particulières, demandes du client, remarques opérationnelles..."/>
+                            <field name="cancellation_reason" invisible="state != 'cancelled'" placeholder="Motif d'annulation"/>
+                        </page>
+                        <page string="Suivi">
+                            <group>
+                                <field name="create_uid" readonly="1"/>
+                                <field name="create_date" readonly="1"/>
+                                <field name="write_uid" readonly="1"/>
+                                <field name="write_date" readonly="1"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_travel_booking_search" model="ir.ui.view">
+        <field name="name">travel.booking.search</field>
+        <field name="model">travel.booking</field>
+        <field name="arch" type="xml">
+            <search string="Rechercher une réservation">
+                <field name="name"/>
+                <field name="customer_id"/>
+                <field name="package_id"/>
+                <field name="destination_id"/>
+                <field name="responsible_user_id"/>
+                <filter string="Mes réservations" name="my_bookings" domain="[('responsible_user_id', '=', uid)]"/>
+                <separator/>
+                <filter string="Brouillon" name="draft" domain="[('state', '=', 'draft')]"/>
+                <filter string="Soumises" name="submitted" domain="[('state', '=', 'submitted')]"/>
+                <filter string="Approuvées" name="approved" domain="[('state', '=', 'approved')]"/>
+                <filter string="Confirmées" name="confirmed" domain="[('state', '=', 'confirmed')]"/>
+                <filter string="Annulées" name="cancelled" domain="[('state', '=', 'cancelled')]"/>
+                <separator/>
+                <filter string="Ce mois" name="this_month" domain="[('booking_date', '&gt;=', context_today().strftime('%Y-%m-01'))]"/>
+                <group expand="0" string="Regrouper par">
+                    <filter string="Destination" name="group_destination" context="{'group_by': 'destination_id'}"/>
+                    <filter string="Package" name="group_package" context="{'group_by': 'package_id'}"/>
+                    <filter string="Responsable" name="group_responsible" context="{'group_by': 'responsible_user_id'}"/>
+                    <filter string="Statut" name="group_state" context="{'group_by': 'state'}"/>
+                    <filter string="Mois" name="group_month" context="{'group_by': 'booking_date:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_travel_booking" model="ir.actions.act_window">
+        <field name="name">Réservations</field>
+        <field name="res_model">travel.booking</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="search_view_id" ref="view_travel_booking_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Créez une réservation de voyage pour un client.</p>
+        </field>
+    </record>
+</odoo>

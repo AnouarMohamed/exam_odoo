@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_travel_root"
+              name="Agence de Voyages"
+              sequence="10"
+              groups="travel_agency_management.group_travel_user"/>
+
+    <menuitem id="menu_travel_bookings"
+              name="Réservations"
+              parent="menu_travel_root"
+              action="action_travel_booking"
+              sequence="10"/>
+
+    <menuitem id="menu_travel_trips"
+              name="Voyages"
+              parent="menu_travel_root"
+              sequence="20"/>
+
+    <menuitem id="menu_travel_destinations"
+              name="Destinations"
+              parent="menu_travel_trips"
+              action="action_travel_destination"
+              sequence="10"/>
+
+    <menuitem id="menu_travel_packages"
+              name="Packages"
+              parent="menu_travel_trips"
+              action="action_travel_package"
+              sequence="20"/>
+
+    <menuitem id="menu_travel_departures"
+              name="Départs"
+              parent="menu_travel_trips"
+              action="action_travel_departure"
+              sequence="30"/>
+
+    <menuitem id="menu_travel_passengers"
+              name="Voyageurs"
+              parent="menu_travel_root"
+              action="action_travel_passenger"
+              sequence="30"/>
+
+    <menuitem id="menu_travel_reporting"
+              name="Reporting"
+              parent="menu_travel_root"
+              sequence="40"
+              groups="travel_agency_management.group_travel_manager"/>
+
+    <menuitem id="menu_travel_booking_analysis"
+              name="Analyse des réservations"
+              parent="menu_travel_reporting"
+              action="action_travel_booking_analysis"
+              sequence="10"/>
+</odoo>

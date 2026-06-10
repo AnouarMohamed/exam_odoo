@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_travel_departure_tree" model="ir.ui.view">
+        <field name="name">travel.departure.tree</field>
+        <field name="model">travel.departure</field>
+        <field name="arch" type="xml">
+            <tree string="Départs" decoration-success="state == 'open'" decoration-muted="state in ('closed', 'cancelled')">
+                <field name="name"/>
+                <field name="package_id"/>
+                <field name="destination_id"/>
+                <field name="departure_date"/>
+                <field name="return_date"/>
+                <field name="capacity"/>
+                <field name="booked_seats"/>
+                <field name="available_seats"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_travel_departure_form" model="ir.ui.view">
+        <field name="name">travel.departure.form</field>
+        <field name="model">travel.departure</field>
+        <field name="arch" type="xml">
+            <form string="Départ programmé">
+                <header>
+                    <button name="action_open" type="object" string="Ouvrir" class="oe_highlight" invisible="state != 'draft'"/>
+                    <button name="action_close" type="object" string="Fermer" invisible="state != 'open'"/>
+                    <button name="action_cancel" type="object" string="Annuler" invisible="state == 'cancelled'"/>
+                    <button name="action_reset_to_draft" type="object" string="Remettre en brouillon" invisible="state not in ('closed', 'cancelled')"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,open,closed,cancelled"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" readonly="1"/>
+                            <field name="package_id"/>
+                            <field name="destination_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group>
+                            <field name="departure_date"/>
+                            <field name="return_date"/>
+                            <field name="capacity"/>
+                            <field name="booked_seats" readonly="1"/>
+                            <field name="available_seats" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Réservations">
+                            <field name="booking_ids" readonly="1">
+                                <tree string="Réservations">
+                                    <field name="name"/>
+                                    <field name="customer_id"/>
+                                    <field name="passenger_count"/>
+                                    <field name="total_amount" widget="monetary"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_travel_departure_search" model="ir.ui.view">
+        <field name="name">travel.departure.search</field>
+        <field name="model">travel.departure</field>
+        <field name="arch" type="xml">
+            <search string="Rechercher un départ">
+                <field name="name"/>
+                <field name="package_id"/>
+                <field name="destination_id"/>
+                <filter string="Ouverts" name="open" domain="[('state', '=', 'open')]"/>
+                <filter string="Brouillons" name="draft" domain="[('state', '=', 'draft')]"/>
+                <filter string="Fermés" name="closed" domain="[('state', '=', 'closed')]"/>
+                <filter string="Annulés" name="cancelled" domain="[('state', '=', 'cancelled')]"/>
+                <separator/>
+                <filter string="Par destination" name="destination_id" context="{'group_by': 'destination_id'}"/>
+                <filter string="Par package" name="package_id" context="{'group_by': 'package_id'}"/>
+                <filter string="Par statut" name="group_state" context="{'group_by': 'state'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_travel_departure" model="ir.actions.act_window">
+        <field name="name">Départs</field>
+        <field name="res_model">travel.departure</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_travel_departure_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Planifiez un départ pour un package publié.</p>
+        </field>
+    </record>
+</odoo>

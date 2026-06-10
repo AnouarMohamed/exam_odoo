@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_travel_destination_user,travel.destination.user,model_travel_destination,travel_agency_management.group_travel_user,1,0,0,0
+access_travel_destination_manager,travel.destination.manager,model_travel_destination,travel_agency_management.group_travel_manager,1,1,1,1
+access_travel_package_user,travel.package.user,model_travel_package,travel_agency_management.group_travel_user,1,0,0,0
+access_travel_package_manager,travel.package.manager,model_travel_package,travel_agency_management.group_travel_manager,1,1,1,1
+access_travel_departure_user,travel.departure.user,model_travel_departure,travel_agency_management.group_travel_user,1,0,0,0
+access_travel_departure_manager,travel.departure.manager,model_travel_departure,travel_agency_management.group_travel_manager,1,1,1,1
+access_travel_booking_user,travel.booking.user,model_travel_booking,travel_agency_management.group_travel_user,1,1,1,0
+access_travel_booking_manager,travel.booking.manager,model_travel_booking,travel_agency_management.group_travel_manager,1,1,1,1
+access_travel_passenger_user,travel.passenger.user,model_travel_passenger,travel_agency_management.group_travel_user,1,1,1,0
+access_travel_passenger_manager,travel.passenger.manager,model_travel_passenger,travel_agency_management.group_travel_manager,1,1,1,1

@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="partner_customer_sara" model="res.partner">
+        <field name="name">Sara Benali</field>
+        <field name="email">sara.benali@example.com</field>
+        <field name="phone">+212 600 100 001</field>
+        <field name="customer_rank">1</field>
+    </record>
+
+    <record id="partner_customer_youssef" model="res.partner">
+        <field name="name">Youssef El Amrani</field>
+        <field name="email">youssef.elamrani@example.com</field>
+        <field name="phone">+212 600 100 002</field>
+        <field name="customer_rank">1</field>
+    </record>
+
+    <record id="partner_customer_nadia" model="res.partner">
+        <field name="name">Nadia Alaoui</field>
+        <field name="email">nadia.alaoui@example.com</field>
+        <field name="phone">+212 600 100 003</field>
+        <field name="customer_rank">1</field>
+    </record>
+
+    <record id="partner_supplier_hotel" model="res.partner">
+        <field name="name">Atlas Hotels &amp; Resorts</field>
+        <field name="email">booking@atlashotels.example.com</field>
+        <field name="supplier_rank">1</field>
+    </record>
+
+    <record id="partner_supplier_transport" model="res.partner">
+        <field name="name">TransMed Voyages</field>
+        <field name="email">operations@transmed.example.com</field>
+        <field name="supplier_rank">1</field>
+    </record>
+
+    <record id="destination_istanbul" model="travel.destination">
+        <field name="name">Istanbul historique</field>
+        <field name="country_id" ref="base.tr"/>
+        <field name="city">Istanbul</field>
+        <field name="description">Circuit culturel entre Sultanahmet, Bosphore et bazars traditionnels.</field>
+    </record>
+
+    <record id="destination_paris" model="travel.destination">
+        <field name="name">Paris découverte</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="city">Paris</field>
+        <field name="description">Séjour urbain autour du patrimoine, de la gastronomie et des musées.</field>
+    </record>
+
+    <record id="destination_marrakech" model="travel.destination">
+        <field name="name">Marrakech authentique</field>
+        <field name="country_id" ref="base.ma"/>
+        <field name="city">Marrakech</field>
+        <field name="description">Programme combinant médina, jardins, riads et excursion dans l'Atlas.</field>
+    </record>
+
+    <record id="destination_dubai" model="travel.destination">
+        <field name="name">Dubai moderne</field>
+        <field name="country_id" ref="base.ae"/>
+        <field name="city">Dubai</field>
+        <field name="description">Séjour premium entre architecture contemporaine, shopping et désert.</field>
+    </record>
+
+    <record id="package_istanbul" model="travel.package">
+        <field name="name">Escapade Istanbul 5 jours</field>
+        <field name="destination_id" ref="destination_istanbul"/>
+        <field name="duration_days">5</field>
+        <field name="base_price">790.0</field>
+        <field name="description">Package culturel avec hôtel, transferts et visites guidées.</field>
+        <field name="included_services">Hôtel 4 étoiles, petits déjeuners, transferts aéroport, guide francophone.</field>
+        <field name="supplier_ids" eval="[(6, 0, [ref('partner_supplier_hotel'), ref('partner_supplier_transport')])]"/>
+        <field name="state">published</field>
+    </record>
+
+    <record id="package_paris" model="travel.package">
+        <field name="name">Paris essentiel 4 jours</field>
+        <field name="destination_id" ref="destination_paris"/>
+        <field name="duration_days">4</field>
+        <field name="base_price">920.0</field>
+        <field name="description">Séjour découverte avec visites majeures et temps libre.</field>
+        <field name="included_services">Hôtel, petit déjeuner, transfert, billet musée, assistance agence.</field>
+        <field name="supplier_ids" eval="[(6, 0, [ref('partner_supplier_hotel')])]"/>
+        <field name="state">published</field>
+    </record>
+
+    <record id="package_marrakech" model="travel.package">
+        <field name="name">Marrakech &amp; Atlas 3 jours</field>
+        <field name="destination_id" ref="destination_marrakech"/>
+        <field name="duration_days">3</field>
+        <field name="base_price">360.0</field>
+        <field name="description">Court séjour combinant médina, riad et excursion montagne.</field>
+        <field name="included_services">Riad, petit déjeuner, visite médina, excursion Atlas, transport.</field>
+        <field name="supplier_ids" eval="[(6, 0, [ref('partner_supplier_hotel'), ref('partner_supplier_transport')])]"/>
+        <field name="state">published</field>
+    </record>
+
+    <record id="package_dubai" model="travel.package">
+        <field name="name">Dubai premium 6 jours</field>
+        <field name="destination_id" ref="destination_dubai"/>
+        <field name="duration_days">6</field>
+        <field name="base_price">1450.0</field>
+        <field name="description">Séjour haut de gamme avec city tour, désert et assistance personnalisée.</field>
+        <field name="included_services">Hôtel 5 étoiles, transferts privés, safari désert, city tour, assurance assistance.</field>
+        <field name="supplier_ids" eval="[(6, 0, [ref('partner_supplier_hotel'), ref('partner_supplier_transport')])]"/>
+        <field name="state">published</field>
+    </record>
+
+    <record id="departure_istanbul" model="travel.departure">
+        <field name="package_id" ref="package_istanbul"/>
+        <field name="departure_date">2026-07-10</field>
+        <field name="capacity">25</field>
+        <field name="state">open</field>
+    </record>
+
+    <record id="departure_paris" model="travel.departure">
+        <field name="package_id" ref="package_paris"/>
+        <field name="departure_date">2026-08-05</field>
+        <field name="capacity">18</field>
+        <field name="state">open</field>
+    </record>
+
+    <record id="departure_marrakech" model="travel.departure">
+        <field name="package_id" ref="package_marrakech"/>
+        <field name="departure_date">2026-06-25</field>
+        <field name="capacity">12</field>
+        <field name="state">open</field>
+    </record>
+
+    <record id="departure_dubai" model="travel.departure">
+        <field name="package_id" ref="package_dubai"/>
+        <field name="departure_date">2026-09-15</field>
+        <field name="capacity">20</field>
+        <field name="state">open</field>
+    </record>
+
+    <record id="booking_marrakech_draft" model="travel.booking">
+        <field name="customer_id" ref="partner_customer_sara"/>
+        <field name="package_id" ref="package_marrakech"/>
+        <field name="departure_id" ref="departure_marrakech"/>
+        <field name="booking_date">2026-06-10</field>
+        <field name="state">draft</field>
+        <field name="note">Demande familiale en attente de validation.</field>
+    </record>
+
+    <record id="passenger_sara" model="travel.passenger">
+        <field name="name">Sara Benali</field>
+        <field name="booking_id" ref="booking_marrakech_draft"/>
+        <field name="date_of_birth">1992-04-12</field>
+        <field name="nationality_id" ref="base.ma"/>
+        <field name="passport_number">MA123456</field>
+        <field name="email">sara.benali@example.com</field>
+    </record>
+
+    <record id="booking_istanbul_submitted" model="travel.booking">
+        <field name="customer_id" ref="partner_customer_youssef"/>
+        <field name="package_id" ref="package_istanbul"/>
+        <field name="departure_id" ref="departure_istanbul"/>
+        <field name="booking_date">2026-06-09</field>
+        <field name="state">submitted</field>
+        <field name="note">Le client attend la confirmation de disponibilité.</field>
+    </record>
+
+    <record id="passenger_youssef" model="travel.passenger">
+        <field name="name">Youssef El Amrani</field>
+        <field name="booking_id" ref="booking_istanbul_submitted"/>
+        <field name="date_of_birth">1987-11-20</field>
+        <field name="nationality_id" ref="base.ma"/>
+        <field name="passport_number">MA778899</field>
+        <field name="email">youssef.elamrani@example.com</field>
+    </record>
+
+    <record id="booking_paris_approved" model="travel.booking">
+        <field name="customer_id" ref="partner_customer_nadia"/>
+        <field name="package_id" ref="package_paris"/>
+        <field name="departure_id" ref="departure_paris"/>
+        <field name="booking_date">2026-06-08</field>
+        <field name="state">approved</field>
+        <field name="note">Réservation approuvée, devis à créer.</field>
+    </record>
+
+    <record id="passenger_nadia" model="travel.passenger">
+        <field name="name">Nadia Alaoui</field>
+        <field name="booking_id" ref="booking_paris_approved"/>
+        <field name="date_of_birth">1990-01-05</field>
+        <field name="nationality_id" ref="base.ma"/>
+        <field name="passport_number">MA445566</field>
+        <field name="email">nadia.alaoui@example.com</field>
+    </record>
+</odoo>

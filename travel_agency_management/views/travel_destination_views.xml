@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_travel_destination_tree" model="ir.ui.view">
+        <field name="name">travel.destination.tree</field>
+        <field name="model">travel.destination</field>
+        <field name="arch" type="xml">
+            <tree string="Destinations">
+                <field name="name"/>
+                <field name="city"/>
+                <field name="country_id"/>
+                <field name="package_count"/>
+                <field name="departure_count"/>
+                <field name="booking_count"/>
+                <field name="active" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_travel_destination_form" model="ir.ui.view">
+        <field name="name">travel.destination.form</field>
+        <field name="model">travel.destination</field>
+        <field name="arch" type="xml">
+            <form string="Destination">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="action" name="%(action_travel_package)d" icon="fa-suitcase" context="{'search_default_destination_id': active_id}">
+                            <field name="package_count" widget="statinfo" string="Packages"/>
+                        </button>
+                    </div>
+                    <field name="image_1920" widget="image" class="oe_avatar"/>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="city"/>
+                            <field name="country_id"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="package_count" readonly="1"/>
+                            <field name="departure_count" readonly="1"/>
+                            <field name="booking_count" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Description">
+                            <field name="description" placeholder="Description touristique, contexte commercial, points forts..."/>
+                        </page>
+                        <page string="Packages">
+                            <field name="package_ids" readonly="1">
+                                <tree string="Packages">
+                                    <field name="name"/>
+                                    <field name="duration_days"/>
+                                    <field name="base_price" widget="monetary"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_travel_destination_search" model="ir.ui.view">
+        <field name="name">travel.destination.search</field>
+        <field name="model">travel.destination</field>
+        <field name="arch" type="xml">
+            <search string="Rechercher une destination">
+                <field name="name"/>
+                <field name="city"/>
+                <field name="country_id"/>
+                <filter string="Actives" name="active_destinations" domain="[('active', '=', True)]"/>
+                <filter string="Archivées" name="inactive_destinations" domain="[('active', '=', False)]"/>
+                <group expand="0" string="Regrouper par">
+                    <filter string="Pays" name="group_country" context="{'group_by': 'country_id'}"/>
+                    <filter string="Ville" name="group_city" context="{'group_by': 'city'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_travel_destination" model="ir.actions.act_window">
+        <field name="name">Destinations</field>
+        <field name="res_model">travel.destination</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_travel_destination_search"/>
+        <field name="context">{'active_test': False}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Créez la première destination de voyage.</p>
+        </field>
+    </record>
+</odoo>

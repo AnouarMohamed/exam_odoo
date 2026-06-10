@@ -1,0 +1,139 @@
+<svg width="600" height="1280" viewBox="0 0 600 1280" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#000000" />
+    </marker>
+  </defs>
+
+  <!-- Swimlane Column Separators -->
+  <line x1="150" y1="0" x2="150" y2="1280" stroke="#cccccc" stroke-width="1.0" stroke-dasharray="3,3" />
+  <line x1="300" y1="0" x2="300" y2="1280" stroke="#cccccc" stroke-width="1.0" stroke-dasharray="3,3" />
+  <line x1="450" y1="0" x2="450" y2="1280" stroke="#cccccc" stroke-width="1.0" stroke-dasharray="3,3" />
+
+  <!-- Column Headers -->
+  <rect x="0" y="0" width="150" height="40" fill="#f8fafc" stroke="#000000" stroke-width="1.0" />
+  <text x="75" y="24" font-family="'Times New Roman', Georgia, serif" font-size="11px" text-anchor="middle" font-weight="bold">Client</text>
+
+  <rect x="150" y="0" width="150" height="40" fill="#f8fafc" stroke="#000000" stroke-width="1.0" />
+  <text x="225" y="24" font-family="'Times New Roman', Georgia, serif" font-size="11px" text-anchor="middle" font-weight="bold">Agent de voyages</text>
+
+  <rect x="300" y="0" width="150" height="40" fill="#f8fafc" stroke="#000000" stroke-width="1.0" />
+  <text x="375" y="24" font-family="'Times New Roman', Georgia, serif" font-size="11px" text-anchor="middle" font-weight="bold">Responsable agence</text>
+
+  <rect x="450" y="0" width="150" height="40" fill="#f8fafc" stroke="#000000" stroke-width="1.0" />
+  <text x="525" y="24" font-family="'Times New Roman', Georgia, serif" font-size="11px" text-anchor="middle" font-weight="bold">SI Odoo 17</text>
+
+  <!-- Connectors -->
+  <path d="M 75,72 L 75,95 L 225,95 L 225,110" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+  <path d="M 225,150 L 225,180" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+  <path d="M 225,220 L 225,245 L 75,245 L 75,265" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+  
+  <!-- Non Path Client -->
+  <path d="M 110,285 L 140,285 L 140,310" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+  
+  <!-- Oui Path Client -->
+  <path d="M 75,305 L 75,335 L 225,335 L 225,350" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+  <path d="M 225,390 L 225,410" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+  <path d="M 225,450 L 225,470" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+  <path d="M 225,510 L 225,535 L 375,535 L 375,550" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+  <path d="M 375,590 L 375,615 L 525,615 L 525,630" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+  
+  <!-- Non Path Seats -->
+  <path d="M 490,650 L 225,650 L 225,680" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+  <path d="M 225,720 L 225,745 L 60,745 L 60,170 L 160,170" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+  
+  <!-- Oui Path Seats -->
+  <path d="M 525,670 L 525,695 L 375,695 L 375,740" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+  <path d="M 375,780 L 375,805 L 525,805 L 525,820" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+  <path d="M 525,860 L 525,885 L 75,885 L 75,900" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+  <path d="M 75,940 L 75,965 L 525,965 L 525,980" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+  <path d="M 525,1020 L 525,1050" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+  <path d="M 525,1090 L 525,1110 L 225,1110 L 225,1130" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+  <path d="M 225,1170 L 225,1195 L 75,1195 L 75,1210" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+
+  <!-- Nodes -->
+  <!-- Start -->
+  <circle cx="75" cy="60" r="12" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <text x="75" y="64" font-family="'Times New Roman', Georgia, serif" font-size="9px" text-anchor="middle" font-weight="bold">Début</text>
+
+  <!-- 1. Consult -->
+  <rect x="160" y="110" width="130" height="40" rx="3" ry="3" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <text x="225" y="124" font-family="'Times New Roman', Georgia, serif" font-size="9px" text-anchor="middle">Consulter Odoo</text>
+  <text x="225" y="136" font-family="'Times New Roman', Georgia, serif" font-size="8px" text-anchor="middle" fill="#666">(packages, départs)</text>
+
+  <!-- 2. Propose -->
+  <rect x="160" y="180" width="130" height="40" rx="3" ry="3" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <text x="225" y="204" font-family="'Times New Roman', Georgia, serif" font-size="10px" text-anchor="middle">Proposer offre</text>
+
+  <!-- Diamond 1. Accept? -->
+  <polygon points="75,265 110,285 75,305 40,285" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <text x="75" y="288" font-family="'Times New Roman', Georgia, serif" font-size="9px" text-anchor="middle" font-weight="bold">Accepte ?</text>
+  <text x="120" y="280" font-family="'Times New Roman', Georgia, serif" font-size="8px">Non</text>
+  <text x="82" y="320" font-family="'Times New Roman', Georgia, serif" font-size="8px">Oui</text>
+
+  <!-- End Refus -->
+  <rect x="100" y="310" width="80" height="25" rx="3" ry="3" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <text x="140" y="325" font-family="'Times New Roman', Georgia, serif" font-size="9px" text-anchor="middle">Fin : Refus</text>
+
+  <!-- 3. Create Booking -->
+  <rect x="160" y="350" width="130" height="40" rx="3" ry="3" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <text x="225" y="369" font-family="'Times New Roman', Georgia, serif" font-size="9px" text-anchor="middle">Créer réservation</text>
+  <text x="225" y="381" font-family="'Times New Roman', Georgia, serif" font-size="8px" text-anchor="middle" fill="#666">travel.booking (brouillon)</text>
+
+  <!-- 4. Add Passenger -->
+  <rect x="160" y="410" width="130" height="40" rx="3" ry="3" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <text x="225" y="429" font-family="'Times New Roman', Georgia, serif" font-size="9px" text-anchor="middle">Saisir voyageurs</text>
+  <text x="225" y="441" font-family="'Times New Roman', Georgia, serif" font-size="8px" text-anchor="middle" fill="#666">travel.passenger</text>
+
+  <!-- 5. Submit -->
+  <rect x="160" y="470" width="130" height="40" rx="3" ry="3" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <text x="225" y="494" font-family="'Times New Roman', Georgia, serif" font-size="10px" text-anchor="middle">Soumettre dossier</text>
+
+  <!-- 6. Review -->
+  <rect x="310" y="550" width="130" height="40" rx="3" ry="3" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <text x="375" y="574" font-family="'Times New Roman', Georgia, serif" font-size="10px" text-anchor="middle">Vérifier dispo</text>
+
+  <!-- Diamond 2. Available? -->
+  <polygon points="525,630 560,650 525,670 490,650" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <text x="525" y="653" font-family="'Times New Roman', Georgia, serif" font-size="8px" text-anchor="middle" font-weight="bold">Places dispos ?</text>
+  <text x="440" y="645" font-family="'Times New Roman', Georgia, serif" font-size="8px">Non</text>
+  <text x="532" y="685" font-family="'Times New Roman', Georgia, serif" font-size="8px">Oui</text>
+
+  <!-- Alternative Offer -->
+  <rect x="160" y="680" width="130" height="40" rx="3" ry="3" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <text x="225" y="699" font-family="'Times New Roman', Georgia, serif" font-size="9px" text-anchor="middle">Proposer alternative</text>
+  <text x="225" y="711" font-family="'Times New Roman', Georgia, serif" font-size="8px" text-anchor="middle" fill="#666">(Autre départ)</text>
+
+  <!-- 8. Approve -->
+  <rect x="310" y="740" width="130" height="40" rx="3" ry="3" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <text x="375" y="764" font-family="'Times New Roman', Georgia, serif" font-size="10px" text-anchor="middle">Approuver dossier</text>
+
+  <!-- 9. Create Sale Order -->
+  <rect x="460" y="820" width="130" height="40" rx="3" ry="3" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <text x="525" y="839" font-family="'Times New Roman', Georgia, serif" font-size="9px" text-anchor="middle">Générer devis</text>
+  <text x="525" y="851" font-family="'Times New Roman', Georgia, serif" font-size="8px" text-anchor="middle" fill="#666">sale.order</text>
+
+  <!-- 10. Confirm & Pay -->
+  <rect x="10" y="900" width="130" height="40" rx="3" ry="3" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <text x="75" y="919" font-family="'Times New Roman', Georgia, serif" font-size="9px" text-anchor="middle">Confirmer &amp; payer</text>
+  <text x="75" y="931" font-family="'Times New Roman', Georgia, serif" font-size="8px" text-anchor="middle" fill="#666">(Client)</text>
+
+  <!-- 11. Facturer -->
+  <rect x="460" y="980" width="130" height="40" rx="3" ry="3" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <text x="525" y="999" font-family="'Times New Roman', Georgia, serif" font-size="9px" text-anchor="middle">Facturer &amp; encaisser</text>
+  <text x="525" y="1011" font-family="'Times New Roman', Georgia, serif" font-size="8px" text-anchor="middle" fill="#666">account.move (Standard)</text>
+
+  <!-- 12. Confirm Booking -->
+  <rect x="460" y="1050" width="130" height="40" rx="3" ry="3" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <text x="525" y="1074" font-family="'Times New Roman', Georgia, serif" font-size="10px" text-anchor="middle">Confirmer réservation</text>
+
+  <!-- 13. Print Bon -->
+  <rect x="160" y="1130" width="130" height="40" rx="3" ry="3" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <text x="225" y="1149" font-family="'Times New Roman', Georgia, serif" font-size="9px" text-anchor="middle">Imprimer bon PDF</text>
+  <text x="225" y="1161" font-family="'Times New Roman', Georgia, serif" font-size="8px" text-anchor="middle" fill="#666">Bon de réservation</text>
+
+  <!-- End Success -->
+  <circle cx="75" cy="1225" r="12" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <circle cx="75" cy="1225" r="8" stroke="#000000" stroke-width="1.0" fill="none" />
+  <text x="75" y="1250" font-family="'Times New Roman', Georgia, serif" font-size="9px" text-anchor="middle" font-weight="bold">Voyage réservé</text>
+</svg>

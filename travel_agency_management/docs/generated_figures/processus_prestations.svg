@@ -1,0 +1,101 @@
+<svg width="600" height="880" viewBox="0 0 600 880" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#000000" />
+    </marker>
+  </defs>
+
+  <!-- Swimlane Column Separators -->
+  <line x1="150" y1="0" x2="150" y2="880" stroke="#cccccc" stroke-width="1.0" stroke-dasharray="3,3" />
+  <line x1="300" y1="0" x2="300" y2="880" stroke="#cccccc" stroke-width="1.0" stroke-dasharray="3,3" />
+  <line x1="450" y1="0" x2="450" y2="880" stroke="#cccccc" stroke-width="1.0" stroke-dasharray="3,3" />
+
+  <!-- Column Headers -->
+  <rect x="0" y="0" width="150" height="40" fill="#f8fafc" stroke="#000000" stroke-width="1.0" />
+  <text x="75" y="24" font-family="'Times New Roman', Georgia, serif" font-size="11px" text-anchor="middle" font-weight="bold">Responsable agence</text>
+
+  <rect x="150" y="0" width="150" height="40" fill="#f8fafc" stroke="#000000" stroke-width="1.0" />
+  <text x="225" y="24" font-family="'Times New Roman', Georgia, serif" font-size="11px" text-anchor="middle" font-weight="bold">Agent de voyages</text>
+
+  <rect x="300" y="0" width="150" height="40" fill="#f8fafc" stroke="#000000" stroke-width="1.0" />
+  <text x="375" y="24" font-family="'Times New Roman', Georgia, serif" font-size="11px" text-anchor="middle" font-weight="bold">Fournisseur</text>
+
+  <rect x="450" y="0" width="150" height="40" fill="#f8fafc" stroke="#000000" stroke-width="1.0" />
+  <text x="525" y="24" font-family="'Times New Roman', Georgia, serif" font-size="11px" text-anchor="middle" font-weight="bold">SI Odoo 17</text>
+
+  <!-- Connectors -->
+  <path d="M 75,72 L 75,90 L 225,90 L 225,105" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+  <path d="M 225,145 L 225,170 L 525,170 L 525,185" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+  <path d="M 525,225 L 525,250 L 225,250 L 225,265" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+  <path d="M 225,305 L 225,330 L 75,330 L 75,345" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+  <path d="M 75,385 L 75,410 L 375,410 L 375,425" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+  <path d="M 375,465 L 375,490" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+  
+  <!-- Non Path -->
+  <path d="M 340,510 L 75,510 L 75,470" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+  
+  <!-- Oui Path -->
+  <path d="M 375,530 L 375,550 L 225,550 L 225,575" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+  <path d="M 225,615 L 225,640 L 75,640 L 75,655" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+  <path d="M 75,695 L 75,720 L 525,720 L 525,735" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+  <path d="M 525,775 L 525,815" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arrow)" />
+
+  <!-- Nodes -->
+  <!-- Start -->
+  <circle cx="75" cy="60" r="12" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <text x="75" y="64" font-family="'Times New Roman', Georgia, serif" font-size="9px" text-anchor="middle" font-weight="bold">Début</text>
+
+  <!-- 1. Enregistrer Destination -->
+  <rect x="160" y="105" width="130" height="40" rx="3" ry="3" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <text x="225" y="124" font-family="'Times New Roman', Georgia, serif" font-size="9px" text-anchor="middle">Créer destination</text>
+  <text x="225" y="136" font-family="'Times New Roman', Georgia, serif" font-size="8px" text-anchor="middle" fill="#666">travel.destination</text>
+
+  <!-- 2. Valider Unicité -->
+  <rect x="460" y="185" width="130" height="40" rx="3" ry="3" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <text x="525" y="204" font-family="'Times New Roman', Georgia, serif" font-size="9px" text-anchor="middle">Contrôle unicité</text>
+  <text x="525" y="216" font-family="'Times New Roman', Georgia, serif" font-size="8px" text-anchor="middle" fill="#666">(Automatique ORM)</text>
+
+  <!-- 3. Créer Package -->
+  <rect x="160" y="265" width="130" height="40" rx="3" ry="3" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <text x="225" y="284" font-family="'Times New Roman', Georgia, serif" font-size="9px" text-anchor="middle">Créer package</text>
+  <text x="225" y="296" font-family="'Times New Roman', Georgia, serif" font-size="8px" text-anchor="middle" fill="#666">travel.package</text>
+
+  <!-- 4. Associer fournisseurs -->
+  <rect x="10" y="345" width="130" height="40" rx="3" ry="3" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <text x="75" y="364" font-family="'Times New Roman', Georgia, serif" font-size="9px" text-anchor="middle">Associer prestataires</text>
+  <text x="75" y="376" font-family="'Times New Roman', Georgia, serif" font-size="8px" text-anchor="middle" fill="#666">res.partner (fournisseur)</text>
+
+  <!-- 5. Confirmer services -->
+  <rect x="310" y="425" width="130" height="40" rx="3" ry="3" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <text x="375" y="444" font-family="'Times New Roman', Georgia, serif" font-size="9px" text-anchor="middle">Confirmer dispo</text>
+  <text x="375" y="456" font-family="'Times New Roman', Georgia, serif" font-size="8px" text-anchor="middle" fill="#666">(Hôtel, Transport)</text>
+
+  <!-- Diamond 1. Confirmés ? -->
+  <polygon points="375,490 410,510 375,530 340,510" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <text x="375" y="513" font-family="'Times New Roman', Georgia, serif" font-size="8px" text-anchor="middle" font-weight="bold">Confirmés ?</text>
+  <text x="290" y="505" font-family="'Times New Roman', Georgia, serif" font-size="8px">Non (Modifier)</text>
+  <text x="382" y="545" font-family="'Times New Roman', Georgia, serif" font-size="8px">Oui</text>
+
+  <!-- Change prestataire -->
+  <rect x="10" y="430" width="130" height="40" rx="3" ry="3" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <text x="75" y="454" font-family="'Times New Roman', Georgia, serif" font-size="9px" text-anchor="middle">Modifier prestataire</text>
+
+  <!-- 7. Planifier départ -->
+  <rect x="160" y="575" width="130" height="40" rx="3" ry="3" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <text x="225" y="594" font-family="'Times New Roman', Georgia, serif" font-size="9px" text-anchor="middle">Créer départ réel</text>
+  <text x="225" y="606" font-family="'Times New Roman', Georgia, serif" font-size="8px" text-anchor="middle" fill="#666">travel.departure (brouillon)</text>
+
+  <!-- 8. Ouvrir départ -->
+  <rect x="10" y="655" width="130" height="40" rx="3" ry="3" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <text x="75" y="679" font-family="'Times New Roman', Georgia, serif" font-size="10px" text-anchor="middle">Ouvrir départ aux ventes</text>
+
+  <!-- 9. Suivre capacité -->
+  <rect x="460" y="735" width="130" height="40" rx="3" ry="3" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <text x="525" y="754" font-family="'Times New Roman', Georgia, serif" font-size="9px" text-anchor="middle">Suivre capacité</text>
+  <text x="525" y="766" font-family="'Times New Roman', Georgia, serif" font-size="8px" text-anchor="middle" fill="#666">(Disponibilités ORM)</text>
+
+  <!-- End Success -->
+  <circle cx="525" cy="830" r="12" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <circle cx="525" cy="830" r="8" stroke="#000000" stroke-width="1.0" fill="none" />
+  <text x="525" y="855" font-family="'Times New Roman', Georgia, serif" font-size="9px" text-anchor="middle" font-weight="bold">Départ ouvert</text>
+</svg>

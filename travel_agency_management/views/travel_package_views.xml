@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_travel_package_tree" model="ir.ui.view">
+        <field name="name">travel.package.tree</field>
+        <field name="model">travel.package</field>
+        <field name="arch" type="xml">
+            <tree string="Packages" decoration-muted="state == 'archived'">
+                <field name="name"/>
+                <field name="destination_id"/>
+                <field name="duration_days"/>
+                <field name="base_price" widget="monetary"/>
+                <field name="currency_id" optional="hide"/>
+                <field name="departure_count"/>
+                <field name="booking_count"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_travel_package_kanban" model="ir.ui.view">
+        <field name="name">travel.package.kanban</field>
+        <field name="model">travel.package</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state" class="o_kanban_small_column">
+                <field name="id"/>
+                <field name="name"/>
+                <field name="destination_id"/>
+                <field name="duration_days"/>
+                <field name="base_price"/>
+                <field name="currency_id"/>
+                <field name="image_1920"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click o_kanban_record">
+                            <div class="o_kanban_image">
+                                <img t-if="record.image_1920.raw_value" t-att-src="kanban_image('travel.package', 'image_1920', record.id.raw_value)" alt="Package"/>
+                                <div t-else="" class="o_kanban_image_placeholder">
+                                    <i class="fa fa-map-signs"/>
+                                </div>
+                            </div>
+                            <div class="oe_kanban_details">
+                                <strong><field name="name"/></strong>
+                                <div><field name="destination_id"/></div>
+                                <div><span><field name="duration_days"/></span> jours</div>
+                                <div><field name="base_price" widget="monetary"/></div>
+                                <div><field name="state"/></div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_travel_package_form" model="ir.ui.view">
+        <field name="name">travel.package.form</field>
+        <field name="model">travel.package</field>
+        <field name="arch" type="xml">
+            <form string="Package de voyage">
+                <header>
+                    <button name="action_publish" type="object" string="Publier" class="oe_highlight" invisible="state != 'draft'"/>
+                    <button name="action_archive_package" type="object" string="Archiver" invisible="state == 'archived'"/>
+                    <button name="action_unarchive_package" type="object" string="Désarchiver" invisible="state != 'archived'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,published,archived"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="action" name="%(action_travel_departure)d" icon="fa-calendar" context="{'search_default_package_id': active_id}">
+                            <field name="departure_count" widget="statinfo" string="Départs"/>
+                        </button>
+                    </div>
+                    <field name="image_1920" widget="image" class="oe_avatar"/>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="destination_id"/>
+                            <field name="duration_days"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="currency_id"/>
+                            <field name="base_price" widget="monetary"/>
+                            <field name="supplier_ids" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Description">
+                            <field name="description"/>
+                        </page>
+                        <page string="Services inclus">
+                            <field name="included_services"/>
+                        </page>
+                        <page string="Départs">
+                            <field name="departure_ids" context="{'default_package_id': active_id}">
+                                <tree string="Départs">
+                                    <field name="name"/>
+                                    <field name="departure_date"/>
+                                    <field name="return_date"/>
+                                    <field name="capacity"/>
+                                    <field name="available_seats"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_travel_package_search" model="ir.ui.view">
+        <field name="name">travel.package.search</field>
+        <field name="model">travel.package</field>
+        <field name="arch" type="xml">
+            <search string="Rechercher un package">
+                <field name="name"/>
+                <field name="destination_id"/>
+                <field name="supplier_ids"/>
+                <filter string="Brouillon" name="draft" domain="[('state', '=', 'draft')]"/>
+                <filter string="Publié" name="published" domain="[('state', '=', 'published')]"/>
+                <filter string="Archivé" name="archived" domain="[('state', '=', 'archived')]"/>
+                <separator/>
+                <filter string="Par destination" name="destination_id" context="{'group_by': 'destination_id'}"/>
+                <filter string="Par statut" name="group_state" context="{'group_by': 'state'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_travel_package" model="ir.actions.act_window">
+        <field name="name">Packages</field>
+        <field name="res_model">travel.package</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="search_view_id" ref="view_travel_package_search"/>
+        <field name="context">{'active_test': False}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Créez un package de voyage commercialisable.</p>
+        </field>
+    </record>
+</odoo>

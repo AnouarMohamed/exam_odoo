@@ -1,0 +1,85 @@
+<svg width="600" height="500" viewBox="0 0 600 500" xmlns="http://www.w3.org/2000/svg">
+  <!-- Connectors -->
+  <!-- res.country -> travel.destination -->
+  <line x1="150" y1="90" x2="220" y2="90" stroke="#000000" stroke-width="1.5" />
+  <!-- travel.destination -> travel.package -->
+  <line x1="370" y1="90" x2="420" y2="90" stroke="#000000" stroke-width="1.5" />
+  <!-- travel.package -> travel.departure -->
+  <line x1="495" y1="140" x2="495" y2="220" stroke="#000000" stroke-width="1.5" />
+  <!-- travel.departure -> travel.booking -->
+  <line x1="420" y1="270" x2="370" y2="270" stroke="#000000" stroke-width="1.5" />
+  <!-- travel.booking -> travel.passenger -->
+  <line x1="220" y1="270" x2="170" y2="270" stroke="#000000" stroke-width="1.5" />
+  <!-- res.partner (client) -> travel.booking -->
+  <line x1="295" y1="380" x2="295" y2="320" stroke="#000000" stroke-width="1.5" />
+  <!-- travel.booking -> sale.order -->
+  <line x1="340" y1="320" x2="450" y2="380" stroke="#000000" stroke-width="1.5" />
+  <!-- res.partner (prestataire) -> travel.package -->
+  <path d="M 295,430 L 520,430 L 520,140" fill="none" stroke="#000000" stroke-width="1.5" stroke-dasharray="4" />
+
+  <!-- res.country -->
+  <rect x="20" y="50" width="130" height="80" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <rect x="20" y="50" width="130" height="25" stroke="#f2f2f2" stroke-width="1.5" fill="#f2f2f2" />
+  <text x="85" y="67" font-family="'Times New Roman', Georgia, serif" font-size="11px" text-anchor="middle" font-weight="bold">res.country</text>
+  <text x="30" y="90" font-family="'Courier New', monospace" font-size="10px">code (PK)</text>
+  <text x="30" y="105" font-family="'Courier New', monospace" font-size="10px">name</text>
+  
+  <!-- travel.destination -->
+  <rect x="220" y="40" width="150" height="100" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <rect x="220" y="40" width="150" height="25" stroke="#f2f2f2" stroke-width="1.5" fill="#f2f2f2" />
+  <text x="295" y="57" font-family="'Times New Roman', Georgia, serif" font-size="11px" text-anchor="middle" font-weight="bold">travel.destination</text>
+  <text x="230" y="80" font-family="'Courier New', monospace" font-size="10px">id (PK)</text>
+  <text x="230" y="95" font-family="'Courier New', monospace" font-size="10px">name</text>
+  <text x="230" y="110" font-family="'Courier New', monospace" font-size="10px">city</text>
+  <text x="230" y="125" font-family="'Courier New', monospace" font-size="10px">country_id (FK)</text>
+
+  <!-- travel.package -->
+  <rect x="420" y="40" width="150" height="100" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <rect x="420" y="40" width="150" height="25" stroke="#f2f2f2" stroke-width="1.5" fill="#f2f2f2" />
+  <text x="495" y="57" font-family="'Times New Roman', Georgia, serif" font-size="11px" text-anchor="middle" font-weight="bold">travel.package</text>
+  <text x="430" y="80" font-family="'Courier New', monospace" font-size="10px">id (PK)</text>
+  <text x="430" y="95" font-family="'Courier New', monospace" font-size="10px">name</text>
+  <text x="430" y="110" font-family="'Courier New', monospace" font-size="10px">destination_id (FK)</text>
+  <text x="430" y="125" font-family="'Courier New', monospace" font-size="10px">base_price</text>
+
+  <!-- travel.departure -->
+  <rect x="420" y="220" width="150" height="100" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <rect x="420" y="220" width="150" height="25" stroke="#f2f2f2" stroke-width="1.5" fill="#f2f2f2" />
+  <text x="495" y="237" font-family="'Times New Roman', Georgia, serif" font-size="11px" text-anchor="middle" font-weight="bold">travel.departure</text>
+  <text x="430" y="260" font-family="'Courier New', monospace" font-size="10px">id (PK)</text>
+  <text x="430" y="275" font-family="'Courier New', monospace" font-size="10px">package_id (FK)</text>
+  <text x="430" y="290" font-family="'Courier New', monospace" font-size="10px">departure_date</text>
+  <text x="430" y="305" font-family="'Courier New', monospace" font-size="10px">capacity</text>
+
+  <!-- travel.booking -->
+  <rect x="220" y="220" width="150" height="100" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <rect x="220" y="220" width="150" height="25" stroke="#f2f2f2" stroke-width="1.5" fill="#f2f2f2" />
+  <text x="295" y="237" font-family="'Times New Roman', Georgia, serif" font-size="11px" text-anchor="middle" font-weight="bold">travel.booking</text>
+  <text x="230" y="260" font-family="'Courier New', monospace" font-size="10px">id (PK)</text>
+  <text x="230" y="275" font-family="'Courier New', monospace" font-size="10px">customer_id (FK)</text>
+  <text x="230" y="290" font-family="'Courier New', monospace" font-size="10px">departure_id (FK)</text>
+  <text x="230" y="305" font-family="'Courier New', monospace" font-size="10px">sale_order_id (FK)</text>
+
+  <!-- travel.passenger -->
+  <rect x="20" y="220" width="150" height="100" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <rect x="20" y="220" width="150" height="25" stroke="#f2f2f2" stroke-width="1.5" fill="#f2f2f2" />
+  <text x="95" y="237" font-family="'Times New Roman', Georgia, serif" font-size="11px" text-anchor="middle" font-weight="bold">travel.passenger</text>
+  <text x="30" y="260" font-family="'Courier New', monospace" font-size="10px">id (PK)</text>
+  <text x="30" y="275" font-family="'Courier New', monospace" font-size="10px">booking_id (FK)</text>
+  <text x="30" y="290" font-family="'Courier New', monospace" font-size="10px">name</text>
+  <text x="30" y="305" font-family="'Courier New', monospace" font-size="10px">passport_number</text>
+
+  <!-- res.partner -->
+  <rect x="220" y="380" width="150" height="80" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <rect x="220" y="380" width="150" height="25" stroke="#f2f2f2" stroke-width="1.5" fill="#f2f2f2" />
+  <text x="295" y="397" font-family="'Times New Roman', Georgia, serif" font-size="11px" text-anchor="middle" font-weight="bold">res.partner</text>
+  <text x="230" y="420" font-family="'Courier New', monospace" font-size="10px">id (PK)</text>
+  <text x="230" y="435" font-family="'Courier New', monospace" font-size="10px">name</text>
+
+  <!-- sale.order -->
+  <rect x="440" y="380" width="130" height="80" stroke="#000000" stroke-width="1.5" fill="#ffffff" />
+  <rect x="440" y="380" width="130" height="25" stroke="#f2f2f2" stroke-width="1.5" fill="#f2f2f2" />
+  <text x="505" y="397" font-family="'Times New Roman', Georgia, serif" font-size="11px" text-anchor="middle" font-weight="bold">sale.order</text>
+  <text x="450" y="420" font-family="'Courier New', monospace" font-size="10px">id (PK)</text>
+  <text x="450" y="435" font-family="'Courier New', monospace" font-size="10px">name</text>
+</svg>

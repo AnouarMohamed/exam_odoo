@@ -1,0 +1,59 @@
+erDiagram
+    RES_COUNTRY ||--o{ TRAVEL_DESTINATION : localise
+    TRAVEL_DESTINATION ||--o{ TRAVEL_PACKAGE : propose
+    TRAVEL_PACKAGE ||--o{ TRAVEL_DEPARTURE : planifie
+    TRAVEL_DEPARTURE ||--o{ TRAVEL_BOOKING : recoit
+    RES_PARTNER ||--o{ TRAVEL_BOOKING : client
+    RES_USERS ||--o{ TRAVEL_BOOKING : responsable
+    TRAVEL_BOOKING ||--o{ TRAVEL_PASSENGER : contient
+    TRAVEL_BOOKING ||--o| SALE_ORDER : genere
+    RES_PARTNER }o--o{ TRAVEL_PACKAGE : prestataire
+
+    TRAVEL_DESTINATION {
+        char name
+        many2one country_id
+        char city
+        text description
+        boolean active
+    }
+
+    TRAVEL_PACKAGE {
+        char name
+        many2one destination_id
+        integer duration_days
+        monetary base_price
+        selection state
+        text included_services
+    }
+
+    TRAVEL_DEPARTURE {
+        char name
+        many2one package_id
+        date departure_date
+        date return_date
+        integer capacity
+        integer booked_seats
+        integer available_seats
+        selection state
+    }
+
+    TRAVEL_BOOKING {
+        char name
+        many2one customer_id
+        many2one package_id
+        many2one departure_id
+        date booking_date
+        integer passenger_count
+        monetary unit_price
+        monetary total_amount
+        selection state
+    }
+
+    TRAVEL_PASSENGER {
+        char name
+        many2one booking_id
+        date date_of_birth
+        char passport_number
+        many2one nationality_id
+        char email
+    }
