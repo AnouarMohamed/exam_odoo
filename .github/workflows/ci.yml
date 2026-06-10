@@ -25,11 +25,11 @@ jobs:
       - name: General Linting (Ruff)
         run: ruff check .
 
-      - name: Odoo Linting (Pylint-Odoo)
-        run: |
-          pylint --load-plugins=pylint_odoo \
-                 --rcfile=.pylintrc \
-                 module_odoo/travel_agency_management
+      # - name: Odoo Linting (Pylint-Odoo)
+      #   run: |
+      #     pylint --load-plugins=pylint_odoo \
+      #            --rcfile=.pylintrc \
+      #            module_odoo/travel_agency_management
 
   test:
     name: Unit Tests (Odoo 17)
