@@ -34,28 +34,33 @@ jobs:
   test:
     name: Unit Tests (Odoo 17)
     runs-on: ubuntu-latest
-    services:
-      postgres:
-        image: postgres:15
-        env:
-          POSTGRES_USER: odoo
-          POSTGRES_PASSWORD: odoo
-          POSTGRES_DB: postgres
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-
     steps:
       - uses: actions/checkout@v4
+
+      - name: Setup Docker Network
+        run: docker network create odoo-net
+
+      - name: Start PostgreSQL
+        run: |
+          docker run -d \
+            --name db \
+            --network odoo-net \
+            -e POSTGRES_USER=odoo \
+            -e POSTGRES_PASSWORD=odoo \
+            -e POSTGRES_DB=postgres \
+            postgres:15
+
+      - name: Wait for PostgreSQL
+        run: |
+          until docker exec db pg_isready; do
+            echo "Waiting for postgres..."
+            sleep 2
+          done
 
       - name: Run Odoo Tests
         run: |
           docker run --rm \
-            --link postgres:db \
+            --network odoo-net \
             -v $(pwd)/module_odoo:/mnt/extra-addons \
             -e HOST=db \
             -e USER=odoo \
