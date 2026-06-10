@@ -1,0 +1,69 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint:
+    name: Code Quality (Lint)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install Linting Tools
+        run: |
+          pip install ruff pylint-odoo
+
+      - name: General Linting (Ruff)
+        run: ruff check .
+
+      - name: Odoo Linting (Pylint-Odoo)
+        run: |
+          pylint --load-plugins=pylint_odoo \
+                 --rcfile=.pylintrc \
+                 module_odoo/travel_agency_management
+
+  test:
+    name: Unit Tests (Odoo 17)
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: odoo
+          POSTGRES_PASSWORD: odoo
+          POSTGRES_DB: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Odoo Tests
+        run: |
+          docker run --rm \
+            --link postgres:db \
+            -v $(pwd)/module_odoo:/mnt/extra-addons \
+            -e HOST=db \
+            -e USER=odoo \
+            -e PASSWORD=odoo \
+            odoo:17.0 \
+            -- \
+            -d test_db \
+            -i travel_agency_management \
+            --test-enable \
+            --stop-after-init \
+            --log-level=test
