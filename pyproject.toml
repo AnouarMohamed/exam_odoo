@@ -1,0 +1,14 @@
+[tool.ruff]
+# Target Odoo 17 (Python 3.10+)
+target-version = "py310"
+line-length = 120
+
+[tool.ruff.lint]
+# Enable Pyflakes (F) and E (Error) codes
+select = ["F", "E", "W"]
+ignore = ["E501"]
+
+[tool.ruff.lint.per-file-ignores]
+# Ignore unused imports in __init__.py files as they are required for Odoo model loading
+"**/__init__.py" = ["F401"]
+"**/tests/*.py" = ["F811"]
