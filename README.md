@@ -5,7 +5,7 @@
 
 Ce dépôt contient le projet final de conception de système d'information (SI) réalisé sur **Odoo 17**. Le projet porte sur la gestion complète d'une agence de voyages fictive nommée **Atlas Horizon Travel**.
 
-## 📖 Vue d'ensemble du Projet
+##  Vue d'ensemble du Projet
 
 L'objectif est de fournir une solution intégrée pour gérer le cycle de vie des produits touristiques, de la conception des packages à la facturation finale des clients, en passant par la gestion des départs et des réservations.
 
@@ -17,7 +17,7 @@ L'objectif est de fournir une solution intégrée pour gérer le cycle de vie de
 - **Reporting :** Analyses via vues Graph et Pivot, et édition de bons de réservation en PDF (QWeb).
 - **Sécurité :** Droits d'accès différenciés pour les Agents et les Responsables.
 
-## 📁 Structure du Dépôt
+##  Structure du Dépôt
 
 ```text
 .
@@ -37,7 +37,7 @@ L'objectif est de fournir une solution intégrée pour gérer le cycle de vie de
 └── README.md                  # Ce fichier
 ```
 
-## 🚀 Installation et Utilisation
+##  Installation et Utilisation
 
 ### Prérequis
 - Une instance **Odoo 17** fonctionnelle (Docker ou installation locale).
@@ -51,14 +51,14 @@ L'objectif est de fournir une solution intégrée pour gérer le cycle de vie de
 5. Allez dans **Applications > Mise à jour de la liste des applications**.
 6. Recherchez "Gestion d’une agence de voyages" et cliquez sur **Installer**.
 
-## 🧪 Tests
+##  Tests
 Le module inclut des tests automatisés couvrant le workflow nominal et les contrôles de capacité.
 Pour lancer les tests :
 ```bash
 odoo-bin -d <votre_base> -i travel_agency_management --test-enable --stop-after-init
 ```
 
-## 📝 Documentation Complète
+##  Documentation Complète
 Pour plus de détails sur la conception technique, les choix d'architecture et le manuel utilisateur, veuillez consulter le fichier [rapport_projet_final.pdf](./rapport_projet_final.pdf) présent à la racine.
 
 ---
