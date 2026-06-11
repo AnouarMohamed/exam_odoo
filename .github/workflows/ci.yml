@@ -20,16 +20,10 @@ jobs:
 
       - name: Install Linting Tools
         run: |
-          pip install ruff pylint-odoo
+          pip install ruff
 
       - name: General Linting (Ruff)
         run: ruff check .
-
-      # - name: Odoo Linting (Pylint-Odoo)
-      #   run: |
-      #     pylint --load-plugins=pylint_odoo \
-      #            --rcfile=.pylintrc \
-      #            module_odoo/travel_agency_management
 
   test:
     name: Unit Tests (Odoo 17)
@@ -50,6 +44,9 @@ jobs:
             -e POSTGRES_DB=postgres \
             postgres:15
 
+      - name: Pull Odoo Image
+        run: docker pull odoo:17.0
+
       - name: Wait for PostgreSQL
         run: |
           until docker exec db pg_isready; do
@@ -59,7 +56,7 @@ jobs:
 
       - name: Run Odoo Tests
         run: |
-          docker run --rm \
+          docker run --rm --init \
             --network odoo-net \
             -v $(pwd)/module_odoo:/mnt/extra-addons \
             -e HOST=db \
@@ -71,4 +68,5 @@ jobs:
             -i travel_agency_management \
             --test-enable \
             --stop-after-init \
-            --log-level=test
+            --log-level=info \
+            --test-tags /travel_agency_management
